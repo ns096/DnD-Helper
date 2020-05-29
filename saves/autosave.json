@@ -1,0 +1,59 @@
+{
+	"savedata": {
+		"page_size": {
+			"columns": 6,
+			"rows": 10
+		},
+		"widget_page": [
+			{
+				"content": [
+					{
+						"cur_marker": 0,
+						"feature_name": "Basic Widget",
+						"max_marker": 0
+					},
+					{
+						"cur_marker": 0,
+						"feature_name": "",
+						"max_marker": 4
+					},
+					{
+						"cur_marker": 2,
+						"feature_name": "Extra",
+						"max_marker": 2
+					}
+				],
+				"pos_x": 0,
+				"pos_y": 0,
+				"size_x": 2,
+				"size_y": 2,
+				"widget_type": "BasicWidget"
+			},
+			{
+				"content": [
+					{
+						"class_level": 5,
+						"feature_name": "Spell Slots",
+						"used_slots": [
+							2,
+							2,
+							0,
+							0,
+							0,
+							0,
+							0,
+							0,
+							0
+						]
+					}
+				],
+				"pos_x": 3,
+				"pos_y": 3,
+				"size_x": 2,
+				"size_y": 4,
+				"widget_type": "SpellSlotWidget"
+			}
+		]
+	},
+	"savename": "default"
+}

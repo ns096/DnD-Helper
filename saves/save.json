@@ -1,0 +1,50 @@
+{
+	"default": {
+		"date_created": {
+			"day": 20,
+			"dst": false,
+			"hour": 17,
+			"minute": 33,
+			"month": 5,
+			"second": 8,
+			"weekday": 5,
+			"year": 2019
+		},
+		"date": {
+			"day": 20,
+			"dst": false,
+			"hour": 17,
+			"minute": 33,
+			"month": 5,
+			"second": 8,
+			"weekday": 5,
+			"year": 2019
+		},
+		"savename": "default",
+		"version": "1.0"
+	},
+	"autosave": {
+		"date_created": {
+			"day": 20,
+			"dst": false,
+			"hour": 17,
+			"minute": 33,
+			"month": 5,
+			"second": 8,
+			"weekday": 5,
+			"year": 2019
+		},
+		"date": {
+			"day": 20,
+			"dst": false,
+			"hour": 17,
+			"minute": 33,
+			"month": 5,
+			"second": 8,
+			"weekday": 5,
+			"year": 2019
+		},
+		"savename": "autosave",
+		"version": "1.0"
+	}
+}

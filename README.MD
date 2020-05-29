@@ -1,0 +1,1 @@
+This app allows you to track your spells and skills independent of your game system. You can customize your layout and descriptions.

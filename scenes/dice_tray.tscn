@@ -1,0 +1,114 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/marble_die.tscn" type="PackedScene" id=1]
+
+[node name="dice_tray" type="Spatial"]
+
+[node name="marble_die2" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.040221, 0.137668, 0.142902, -0.0341166, 0.148434, -0.133396, -0.195472, 0.00242012, 0.052686, -3.21923, 9.82448, -1.74817 )
+
+[node name="marble_die3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.040221, 0.137668, 0.142902, -0.0341166, 0.148434, -0.133396, -0.195472, 0.00242012, 0.052686, -3.21923, 9.82448, -1.74817 )
+
+[node name="marble_die4" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.040221, 0.137668, 0.142902, -0.0341166, 0.148434, -0.133396, -0.195472, 0.00242012, 0.052686, -3.21923, 9.82448, -1.74817 )
+
+[node name="marble_die5" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.040221, 0.137668, 0.142902, -0.0341166, 0.148434, -0.133396, -0.195472, 0.00242012, 0.052686, -3.21923, 9.82448, -1.74817 )
+
+[node name="marble_die6" parent="." instance=ExtResource( 1 )]
+transform = Transform( 0.040221, 0.137668, 0.142902, -0.0341166, 0.148434, -0.133396, -0.195472, 0.00242012, 0.052686, -3.21923, 9.82448, -1.74817 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 0.571663, 0.820488, 0, -0.820488, 0.571663, 0, 0, 0, 1, -6.91173, 3.39692, -1.8771 )
+use_collision = true
+width = 28.3484
+height = 7.51703
+depth = 21.8176
+
+[node name="CSGBox" type="CSGBox" parent="CSGBox"]
+transform = Transform( 0.997471, 0.0710738, 0, -0.0710738, 0.997471, 0, 0, 0, 1, -0.00970268, 1.00385, -0.00800753 )
+operation = 2
+width = 23.4473
+height = 7.75968
+depth = 11.1962
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.538188, -0.843542, -0.0168085 )
+height = 4.36617
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5968, -3.0278, 3.00149 )
+height = 4.36617
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="CSGBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5968, -3.0278, -3.39467 )
+height = 4.36617
+
+[node name="CSGBox2" type="CSGBox" parent="CSGBox"]
+transform = Transform( 0.999958, -6.1512e-005, 0.00925363, -6.1512e-005, 0.999912, 0.0132814, -0.00925367, -0.0132814, 0.999869, 11.1068, 0.0477557, 4.0428 )
+width = 2.46851
+height = 7.12985
+depth = 3.25544
+
+[node name="CSGBox" type="CSGBox" parent="CSGBox/CSGBox2"]
+transform = Transform( 1, 1.75482e-007, -1.86265e-009, 2.65863e-008, 1, -2.79397e-009, 0, 2.79397e-009, 1, -0.0306125, 0.0213292, 0 )
+operation = 2
+width = 2.49321
+height = 6.70477
+depth = 2.37538
+
+[node name="CSGBox4" type="CSGBox" parent="CSGBox"]
+transform = Transform( 0.999958, -6.1512e-005, 0.00925363, -6.1512e-005, 0.999912, 0.0132814, -0.00925367, -0.0132814, 0.999869, 11.1068, 0.047756, 0.819189 )
+width = 2.46851
+height = 7.12985
+depth = 3.25544
+
+[node name="CSGBox" type="CSGBox" parent="CSGBox/CSGBox4"]
+transform = Transform( 1, 1.75482e-007, -1.86265e-009, 2.65863e-008, 1, -2.79397e-009, 0, 2.79397e-009, 1, -0.0306125, 0.0213292, 0 )
+operation = 2
+width = 2.49321
+height = 6.70477
+depth = 2.37538
+
+[node name="CSGBox5" type="CSGBox" parent="CSGBox"]
+transform = Transform( 0.999958, -6.1512e-005, 0.00925363, -6.1512e-005, 0.999912, 0.0132814, -0.00925367, -0.0132814, 0.999869, 11.1068, 0.047756, -2.37752 )
+width = 2.46851
+height = 7.12985
+depth = 3.25544
+
+[node name="CSGBox" type="CSGBox" parent="CSGBox/CSGBox5"]
+transform = Transform( 1, 1.75482e-007, -1.86265e-009, 2.65863e-008, 1, -2.79397e-009, 0, 2.79397e-009, 1, -0.0306125, 0.0213292, 0 )
+operation = 2
+width = 2.49321
+height = 6.70477
+depth = 2.37538
+
+[node name="CSGBox6" type="CSGBox" parent="CSGBox"]
+transform = Transform( 0.999958, -6.1512e-005, 0.00925363, -6.1512e-005, 0.999912, 0.0132814, -0.00925367, -0.0132814, 0.999869, 11.1068, 0.047756, -5.42105 )
+width = 2.46851
+height = 7.12985
+depth = 3.25544
+
+[node name="CSGBox" type="CSGBox" parent="CSGBox/CSGBox6"]
+transform = Transform( 1, 1.75482e-007, -1.86265e-009, 2.65863e-008, 1, -2.79397e-009, 0, 2.79397e-009, 1, -0.0306125, 0.0213292, 0 )
+operation = 2
+width = 2.49321
+height = 6.70477
+depth = 2.37538
+
+[node name="CSGBox3" type="CSGBox" parent="CSGBox"]
+transform = Transform( 0.999958, -6.1512e-005, 0.00925363, -6.1512e-005, 0.999912, 0.0132814, -0.00925367, -0.0132814, 0.999869, 11.1068, 0.0477552, 4.0428 )
+width = 2.46851
+height = 7.12985
+depth = 3.25544
+
+[node name="CSGBox" type="CSGBox" parent="CSGBox/CSGBox3"]
+transform = Transform( 1, 5.62723e-008, -1.86265e-009, 2.65863e-008, 1, -1.86265e-009, 0, 9.31323e-010, 1, -0.0306127, 0.0213289, 0 )
+operation = 2
+width = 2.49321
+height = 6.70477
+depth = 2.37538
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( -4.37114e-008, -1, -4.37114e-008, 0, -4.37114e-008, 1, -1, 4.37114e-008, 1.91069e-015, 0, 18.4215, 0 )

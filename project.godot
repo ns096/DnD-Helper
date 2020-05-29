@@ -1,0 +1,67 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Control",
+"class": "BaseWidget",
+"language": "GDScript",
+"path": "res://scripts/BaseWidget.gd"
+} ]
+_global_script_class_icons={
+"BaseWidget": ""
+}
+
+[application]
+
+config/name="DnD Helper"
+run/main_scene="res://scenes/MainFrameWidgets.tscn"
+config/icon="res://icon.png"
+config/quit_on_go_back=false
+
+[autoload]
+
+GlobalHelper="*res://scripts/GlobalHelper.gd"
+
+[debug]
+
+gdscript/warnings/unsafe_property_access=true
+gdscript/warnings/unsafe_method_access=true
+gdscript/warnings/unsafe_cast=true
+gdscript/warnings/unsafe_call_argument=true
+
+[display]
+
+window/size/width=1080
+window/size/height=1920
+window/size/resizable=false
+window/size/test_width=504
+window/size/test_height=896
+window/handheld/orientation="portrait"
+window/stretch/mode="2d"
+window/stretch/aspect="expand"
+
+[gui]
+
+theme/use_hidpi=true
+theme/custom="res://assets/UI_theme.tres"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_clear_color=Color( 0.454902, 0.454902, 0.454902, 1 )
+environment/default_environment="res://default_env.tres"

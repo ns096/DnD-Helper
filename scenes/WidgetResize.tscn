@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/shader/debug_red.material" type="Material" id=1]
+[ext_resource path="res://scripts/WidgetResize.gd" type="Script" id=2]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1080.0
+rect_rotation = 44.9999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="."]
+margin_right = 6.0
+margin_bottom = 6.0
+rect_rotation = 44.9999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel3" type="Panel" parent="."]
+margin_right = 6.0
+margin_bottom = 6.0
+rect_rotation = 44.9999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel4" type="Panel" parent="."]
+margin_right = 6.0
+margin_bottom = 6.0
+rect_rotation = 44.9999
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="Panel" parent="."]
+material = ExtResource( 1 )
+margin_right = 33.0
+margin_bottom = 33.0
+__meta__ = {
+"_edit_use_anchors_": false
+}

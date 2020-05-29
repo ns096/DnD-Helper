@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/shader/debug_red.material" type="Material" id=1]
+[ext_resource path="res://assets/shader/mirror_distance.material" type="Material" id=2]
+
+[sub_resource type="PlaneMesh" id=1]
+
+[node name="shader_test" type="Node"]
+
+[node name="Control" type="Control" parent="."]
+material = ExtResource( 1 )
+margin_right = 507.0
+margin_bottom = 422.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Control"]
+material = ExtResource( 2 )
+margin_right = 451.0
+margin_bottom = 384.0
+rect_scale = Vector2( 1.2075, 1.14022 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Plane Instance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = null
