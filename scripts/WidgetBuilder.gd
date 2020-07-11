@@ -7,7 +7,9 @@ var old_widget_data
 var build_specs
 const content_description = {"BasicWidget":["feature_name","max_marker"],
 							"SpellSlotWidget":["feature_name","class_level"],
-							"DiceTrackerWidget":["feature_name","maximum_die"]}
+							"DiceTrackerWidget":["feature_name","maximum_die"],
+							"HealthPointsTrackerWidget":["feature_name","max_hp"]
+							}
 
 func _ready():
 	OriginalFeatureBuilder = load("res://scenes/FeatureBuilder.tscn")
@@ -20,7 +22,7 @@ func _process(delta):
 	if update_preview_timer >= 0.5 && current_widget_data != null:
 		build_WidgetPreview()
 
-#old		
+#deprecated		
 func add_FeatureBuilder(widget_type,description,feature_specs = null):
 	var new_FeatureBuilder = OriginalFeatureBuilder.instance()
 	$WidgetMaker.add_child(new_FeatureBuilder)
@@ -28,6 +30,7 @@ func add_FeatureBuilder(widget_type,description,feature_specs = null):
 	new_FeatureBuilder.connect("BtnDelete_pressed",self,"_on_BtnDelete_pressed",[new_FeatureBuilder])
 	new_FeatureBuilder.construct_FeatureBuilder(widget_type,description,feature_specs)
 
+#new
 func _add_FeatureBuilder(build_specs, current_data, hide := 0):
 	var new_FeatureBuilder = OriginalFeatureBuilder.instance()
 	$WidgetMaker.add_child(new_FeatureBuilder)

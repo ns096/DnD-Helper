@@ -6,12 +6,14 @@
 [node name="DynamicWidgets" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -7.1272
+margin_right = -7.1272
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-scene_paths = [ "res://scenes/BasicWidget.tscn", "res://scenes/DiceTrackerWidget.tscn", "res://scenes/BannerWidget.tscn", "res://scenes/SpellSlotWidget.tscn" ]
+scene_paths = [ "res://scenes/BasicWidget.tscn", "res://scenes/DiceTrackerWidget.tscn", "res://scenes/BannerWidget.tscn", "res://scenes/SpellSlotWidget.tscn", "res://scenes/HealthPointsTrackerWidget.tscn" ]
 
 [node name="PopupResize" type="PopupPanel" parent="."]
 anchor_left = 0.5
@@ -145,7 +147,7 @@ margin_right = 375.0
 margin_bottom = 133.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "BasicWidget"
+text = "Basic"
 
 [node name="BtnSpellSlotWidget" type="Button" parent="PopupAddWidget/Box"]
 visible = false
@@ -154,7 +156,7 @@ margin_right = 375.0
 margin_bottom = 270.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Spell Slot Widget"
+text = "Spell Slots"
 
 [node name="BtnDiceTrackerWidget" type="Button" parent="PopupAddWidget/Box"]
 visible = false
@@ -163,8 +165,18 @@ margin_right = 375.0
 margin_bottom = 270.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "Dice Tracker Widget"
+text = "Dice Tracker"
+
+[node name="BtnHealthPointsTrackerWidget" type="Button" parent="PopupAddWidget/Box"]
+visible = false
+margin_top = 137.0
+margin_right = 375.0
+margin_bottom = 270.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Health Point Tracker"
 [connection signal="pressed" from="PopupResize/VBox/PopupResize_Submit" to="." method="_on_PopupResize_Submit_pressed"]
 [connection signal="pressed" from="PopupAddWidget/Box/BtnBasicWidget" to="." method="_on_BtnBasicWidget_pressed"]
 [connection signal="pressed" from="PopupAddWidget/Box/BtnSpellSlotWidget" to="." method="_on_BtnSpellSlotWidget_pressed"]
 [connection signal="pressed" from="PopupAddWidget/Box/BtnDiceTrackerWidget" to="." method="_on_BtnDiceTrackerWidget_pressed"]
+[connection signal="pressed" from="PopupAddWidget/Box/BtnHealthPointsTrackerWidget" to="." method="_on_BtnDiceTrackerWidget_pressed"]

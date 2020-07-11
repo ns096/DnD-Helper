@@ -1,9 +1,16 @@
 extends "BaseWidget.gd"
 
 const default_data = {"widget_type": "BasicWidget","widget_size": Vector2(2,2), 
-					"content": [{"feature_name":"Basic Widget","cur_marker":0, "max_marker":0},{"feature_name":"","cur_marker":0,"max_marker":4}]}
+					"content": [
+						{"feature_name":"Basic Widget","cur_marker":0, "max_marker":0},
+						{"feature_name":"","cur_marker":0,"max_marker":4}
+						]
+					}
 
-const build_specs = {"content": {"settings":{"canDelete":true},"feature_name":["LineEdit"],"max_marker":["SpinBox",0,10],"cur_marker":["max_marker"] },
+const build_specs = {"content": {"settings":{"canDelete":true},
+						"feature_name":["LineEdit"],
+						"max_marker":["SpinBox",0,10],
+						"cur_marker":["max_marker"]},
 					"instructions":{"canAdd":true}}
 
 func construct_widget(specifications : Dictionary):

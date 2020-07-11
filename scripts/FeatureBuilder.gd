@@ -10,6 +10,7 @@ signal BtnDelete_pressed()
 var description
 enum {LABEL,SPINBOX}
 var current_data
+var all_input_nodes = {}
 
 func _ready():
 	$BtnAdd.connect("pressed",self,"_on_BtnAdd")
@@ -44,21 +45,25 @@ func setup_FeatureBuilder(build_specs,feature_data = null, hide := 0):
 		$SpinBox.visible = false
 		$TxtLabel.visible = false
 	
-func setup_LineEdit(value:="write here"):
-	var feature_LineEdit = $TxtLabel
+func setup_LineEdit(value:="write here", feature:="test"):
+	var feature_LineEdit = $TxtLabel.duplicate()
 	feature_LineEdit.text = value
 	feature_LineEdit.visible = true
+	all_input_nodes[feature] = feature_LineEdit
 	return feature_LineEdit
 
-func setup_SpinBox(value,min_size:=0,max_size:=10,step := 1):
-	var feature_SpinBox = $SpinBox
+func setup_SpinBox(value,min_size:=0,max_size:=10,step := 1, feature:="test"):
+	var feature_SpinBox = $SpinBox.duplicate()
 	feature_SpinBox.value = value
 	feature_SpinBox.min_value = min_size
 	feature_SpinBox.max_value = max_size
 	feature_SpinBox.step = step
 	feature_SpinBox.visible = true
+	all_input_nodes[feature] = feature_SpinBox
 	return feature_SpinBox
 
+
+#deprecated function
 func construct_FeatureBuilder(widget_type,content_description,feature_specs):
 	match widget_type:
 		"BasicWidget":
@@ -108,6 +113,7 @@ func get_specs() -> Dictionary:
 	var spinbox_value = $SpinBox.value
 	var label_text = $TxtLabel.text 
 	var feature_specs = {}
+
 	
 	if label_text != "" or label_text != "write here...":
 		feature_specs[description[LABEL]] = label_text

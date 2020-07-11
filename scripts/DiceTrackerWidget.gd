@@ -6,8 +6,11 @@ var dice_names = ["d4","d6","d8","d10","d12","d20"]
 var default_data = 	{"widget_type": "DiceTrackerWidget","widget_size":Vector2(4,4),
 					"content": [{"feature_name":"Example","current_die": 0,"maximum_die":5}]}
 
-const build_specs = {"content": {"settings":{"canDelete":false},"feature_name":["LineEdit"],"maximum_die":["SpinBox",0,5],"current_die":["maximum_die"] },
-					"instructions":{"canAdd":false}}	
+const build_specs = {"content": {"settings":{"canDelete":false},
+						"feature_name":["LineEdit"],
+						"maximum_die":["SpinBox",0,5],
+						"current_die":["maximum_die"] },
+					"instructions":{"canAdd":false}}
 
 
 func load_die_image(value : int):

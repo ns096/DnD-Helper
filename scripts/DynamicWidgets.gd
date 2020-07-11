@@ -284,6 +284,8 @@ func _on_BtnDiceTrackerWidget_pressed() -> void:
 	update_widget_page()
 	$PopupAddWidget.visible = false
 	selected_widget_key = null
+	print("DICETRACKAA")
+
 
 #TODO new widget popup easier to add new data 
 func _on_new_widget(widget_data):
