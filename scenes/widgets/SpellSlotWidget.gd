@@ -53,6 +53,7 @@ func construct_widget(specifications : Dictionary):
 				current_data.content[0].used_slots = used_slots
 				var VerticalContainer = VBoxContainer.new()
 				var SpellSlotLabel = Label.new()
+				SpellSlotLabel.theme = theme
 				if feature.has("feature_name"):
 					SpellSlotLabel.text = feature.feature_name
 				else:

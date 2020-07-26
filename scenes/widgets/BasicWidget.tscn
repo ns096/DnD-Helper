@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/UI/ripped_paper.png" type="Texture" id=1]
-[ext_resource path="res://scripts/BasicWidget.gd" type="Script" id=2]
-[ext_resource path="res://assets/shader/debug_red.material" type="Material" id=3]
-[ext_resource path="res://assets/paper_theme.tres" type="Theme" id=4]
+[ext_resource path="res://assets/paper_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/widgets/BasicWidget.gd" type="Script" id=2]
+[ext_resource path="res://assets/UI/ripped_paper.png" type="Texture" id=3]
+[ext_resource path="res://assets/shader/debug_red.material" type="Material" id=4]
 
 [node name="BasicWidget" type="NinePatchRect"]
 margin_right = 169.0
 margin_bottom = 179.0
-theme = ExtResource( 4 )
-texture = ExtResource( 1 )
+theme = ExtResource( 1 )
+texture = ExtResource( 3 )
 patch_margin_left = 87
 patch_margin_top = 94
 patch_margin_right = 82
@@ -21,7 +21,7 @@ __meta__ = {
 }
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
-material = ExtResource( 3 )
+material = ExtResource( 4 )
 margin_left = 24.0
 margin_top = 24.0
 margin_right = 24.0

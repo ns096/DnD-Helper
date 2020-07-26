@@ -25,6 +25,7 @@ func construct_widget(specifications : Dictionary):
 			if feature.has("feature_name"):
 				var WidgetLabel = Label.new()
 				WidgetLabel.text = feature.feature_name
+				WidgetLabel.theme = theme
 				WidgetLabel.mouse_filter = MOUSE_FILTER_IGNORE
 				ContainerForFeature.add_child(WidgetLabel)
 			if feature.has("max_marker"):

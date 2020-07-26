@@ -19,14 +19,26 @@ func _ready():
 
 func setup_FeatureBuilder(build_specs,feature_data = null, hide := 0):
 	$BtnAdd.visible = false
+
 	if feature_data != null:
 		current_data = GlobalHelper.deep_copy(feature_data)
 		print("current_data is null")
-	
 
-	print("feature")
-	print(current_data)
-	print("feature")
+	var default_data = {"widget_type": "BasicWidget","widget_size": Vector2(2,2), 
+							"content": [
+								{"feature_name":"Basic Widget","cur_marker":0, "max_marker":0},
+								{"feature_name":"","cur_marker":0,"max_marker":4}
+								]
+							}
+
+	var palceholder = 	{"content": {
+									"settings":{"canDelete":true},
+									"feature_name":["LineEdit"],
+									"max_marker":["SpinBox",0,10],
+									"cur_marker":["max_marker"]},
+						"instructions":{"canAdd":true}}
+
+
 	for key in feature_data:
 		match build_specs[key][0]:
 			"LineEdit":
@@ -45,11 +57,14 @@ func setup_FeatureBuilder(build_specs,feature_data = null, hide := 0):
 		$SpinBox.visible = false
 		$TxtLabel.visible = false
 	
+
+	
 func setup_LineEdit(value:="write here", feature:="test"):
 	var feature_LineEdit = $TxtLabel.duplicate()
 	feature_LineEdit.text = value
 	feature_LineEdit.visible = true
 	all_input_nodes[feature] = feature_LineEdit
+	add_child(feature_LineEdit)
 	return feature_LineEdit
 
 func setup_SpinBox(value,min_size:=0,max_size:=10,step := 1, feature:="test"):
@@ -60,6 +75,7 @@ func setup_SpinBox(value,min_size:=0,max_size:=10,step := 1, feature:="test"):
 	feature_SpinBox.step = step
 	feature_SpinBox.visible = true
 	all_input_nodes[feature] = feature_SpinBox
+	add_child(feature_SpinBox)
 	return feature_SpinBox
 
 

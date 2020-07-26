@@ -9,8 +9,8 @@ var default_data = 	{"widget_type": "HealthPointsTrackerWidget","widget_size":Ve
 
 const build_specs = {"content": {"settings":{"canDelete":false},
 						"feature_name":["LineEdit"],
-						"minimum_hp":["SpinBox",0,500],
-						"maximum_hp":["SpinBox",0,500],
+						"minimum_hp":["SpinBox",-100,200],
+						"maximum_hp":["SpinBox",0,1000],
 						"current_hp":["maximum_hp"]},
 					"instructions":{"canAdd":false}}	
 

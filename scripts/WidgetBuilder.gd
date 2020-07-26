@@ -2,6 +2,7 @@ extends Control
 
 var OriginalFeatureBuilder
 var PreviewWidget
+var FeatureBuilder
 onready var current_widget_data = null
 var old_widget_data
 var build_specs
@@ -22,23 +23,25 @@ func _process(delta):
 	if update_preview_timer >= 0.5 && current_widget_data != null:
 		build_WidgetPreview()
 
-#deprecated		
-func add_FeatureBuilder(widget_type,description,feature_specs = null):
-	var new_FeatureBuilder = OriginalFeatureBuilder.instance()
-	$WidgetMaker.add_child(new_FeatureBuilder)
-	new_FeatureBuilder.connect("BtnAdd_pressed",self,"_on_BtnAdd_pressed")
-	new_FeatureBuilder.connect("BtnDelete_pressed",self,"_on_BtnDelete_pressed",[new_FeatureBuilder])
-	new_FeatureBuilder.construct_FeatureBuilder(widget_type,description,feature_specs)
 
 #new
-func _add_FeatureBuilder(build_specs, current_data, hide := 0):
+func add_FeatureBuilder(build_specifications , current_data, hide := 0):
 	var new_FeatureBuilder = OriginalFeatureBuilder.instance()
 	$WidgetMaker.add_child(new_FeatureBuilder)
 	new_FeatureBuilder.connect("BtnAdd_pressed",self,"_on_BtnAdd_pressed")
 	new_FeatureBuilder.connect("BtnDelete_pressed",self,"_on_BtnDelete_pressed",[new_FeatureBuilder])
-	new_FeatureBuilder.setup_FeatureBuilder(build_specs, current_data, hide)
+	new_FeatureBuilder.setup_FeatureBuilder(build_specifications, current_data, hide)
 	return new_FeatureBuilder
 
+func load_feature_builder(builder_path := ""):
+	FeatureBuilder = load(builder_path).instance()
+	add_child(FeatureBuilder)
+
+
+func get_new_widget_specs():
+	if FeatureBuilder.has_method('get_specs'):
+		return FeatureBuilder.get_specs()
+	
 
 func setup_WidgetBuilder(Widget : BaseWidget):
 	for child in $WidgetMaker.get_children():
@@ -48,10 +51,10 @@ func setup_WidgetBuilder(Widget : BaseWidget):
 	build_specs = Widget.build_specs
 
 	for feature in current_widget_data.content:
-		_add_FeatureBuilder(build_specs.content,feature)
+		add_FeatureBuilder(build_specs.content,feature)
 
 	if build_specs.instructions.canAdd:
-		_add_FeatureBuilder(build_specs.content,current_widget_data.content[0],1)
+		add_FeatureBuilder(build_specs.content,current_widget_data.content[0],1)
 	
 	# #using the Dictionary pattern with match to change the FeatureBuilder configuration
 	# match current_widget_data:
@@ -87,11 +90,11 @@ func build_WidgetPreview():
 	$WidgetPreview.add_child(new_preview)
 
 func _on_BtnAdd_pressed():
-	_add_FeatureBuilder(build_specs.content,current_widget_data.content[0],1)
+	add_FeatureBuilder(build_specs.content,current_widget_data.content[0],1)
 
 func _on_BtnDelete_pressed(FeatureBuilder):
 	if $WidgetMaker.get_child_count() <= 1:
-		_add_FeatureBuilder(build_specs.content,current_widget_data.content[0],1)
+		add_FeatureBuilder(build_specs.content,current_widget_data.content[0],1)
 	FeatureBuilder.queue_free()
 
 
