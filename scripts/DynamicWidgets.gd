@@ -121,7 +121,7 @@ func construct_widget_page(savedata : Dictionary):
 #this class keeps track of page position and specifications
 #Widget keeps track of specifications for user interactions and returning data later	
 func build_widget(page_position, specifications):
-	var node_path = "res://scenes/%s.tscn" % specifications.widget_type
+	var node_path = "res://widgets/%s.tscn" % specifications.widget_type
 	var DynamicWidget = load(node_path).instance()
 	DynamicWidget.connect("on_release_drag_widget", self, "try_snap_widget")
 	DynamicWidget.connect("on_start_drag_widget", self, "init_start_drag_widget")

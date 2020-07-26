@@ -33,15 +33,16 @@ func add_FeatureBuilder(build_specifications , current_data, hide := 0):
 	new_FeatureBuilder.setup_FeatureBuilder(build_specifications, current_data, hide)
 	return new_FeatureBuilder
 
-func load_feature_builder(builder_path := ""):
+func load_feature_builder(builder_path : String):
 	FeatureBuilder = load(builder_path).instance()
 	add_child(FeatureBuilder)
 
 
-func get_new_widget_specs():
+func get_new_widget_specs() -> Dictionary:
 	if FeatureBuilder.has_method('get_specs'):
 		return FeatureBuilder.get_specs()
-	
+	else:
+		return {'Error':'Method get specs not found'}
 
 func setup_WidgetBuilder(Widget : BaseWidget):
 	for child in $WidgetMaker.get_children():
@@ -84,7 +85,7 @@ func collect_specification() -> Dictionary:
 func build_WidgetPreview():
 	if $WidgetPreview.get_child_count() > 0:
 		$WidgetPreview.get_child(0).queue_free()
-	var new_preview = load("res://scenes/%s.tscn" % current_widget_data.widget_type).instance()
+	var new_preview = load("res://widgets/%s.tscn" % current_widget_data.widget_type).instance()
 	current_widget_data.content = collect_specification()
 	new_preview.construct_widget(current_widget_data)
 	$WidgetPreview.add_child(new_preview)

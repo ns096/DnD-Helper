@@ -31,7 +31,7 @@ func setup_FeatureBuilder(build_specs,feature_data = null, hide := 0):
 								]
 							}
 
-	var palceholder = 	{"content": {
+	var placeholder = 	{"content": {
 									"settings":{"canDelete":true},
 									"feature_name":["LineEdit"],
 									"max_marker":["SpinBox",0,10],

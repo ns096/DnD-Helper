@@ -22,6 +22,7 @@ signal on_start_drag_widget(self_reference)
 signal on_holding_press(self_reference)
 onready var bounding_box = Rect2(rect_position,rect_size)
 
+export var FeatureBuilder : Resource
 var current_data = null
 #var default_data = null
 

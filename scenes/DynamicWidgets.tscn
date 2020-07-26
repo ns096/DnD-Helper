@@ -13,7 +13,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-scene_paths = [ "res://scenes/BasicWidget.tscn", "res://scenes/DiceTrackerWidget.tscn", "res://scenes/BannerWidget.tscn", "res://scenes/SpellSlotWidget.tscn", "res://scenes/HealthPointsTrackerWidget.tscn" ]
+scene_paths = [ "res://widgets/BasicWidget.tscn", "res://widgets/DiceTrackerWidget.tscn", "res://widgets/BannerWidget.tscn", "res://widgets/SpellSlotWidget.tscn", "res://widgets/HealthPointsTrackerWidget.tscn" ]
 
 [node name="PopupResize" type="PopupPanel" parent="."]
 anchor_left = 0.5
