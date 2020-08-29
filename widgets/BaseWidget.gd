@@ -25,7 +25,6 @@ onready var bounding_box = Rect2(rect_position,rect_size)
 export var FeatureBuilder : Resource
 var current_data = null
 #var default_data = null
-
 #every widget should have the red_dot for dragging
 func _ready():
 	red_dot = load("res://scenes/red_dot.tscn").instance()
@@ -36,6 +35,8 @@ func _ready():
 
 func get_data():
 	return current_data
+
+
 
 #Widget needs to construct itself with Dictionary Data
 #Same Data has to be stored then in save file

@@ -6,10 +6,13 @@ extends Node
 #and communicate its specs with the corresponding widget
 
 var feature_specification
+var current_data
 
 func _ready():
 	pass
 
+func setup_FeatureBuilder(feature_data = null):
+	pass
 
 func get_specs():
-	pass
+	return feature_specification

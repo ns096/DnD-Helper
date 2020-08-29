@@ -49,16 +49,16 @@ __meta__ = {
 [node name="TextureRect" type="TextureRect" parent="VBox"]
 margin_top = 62.0
 margin_right = 256.0
-margin_bottom = 322.0
+margin_bottom = 318.0
 mouse_filter = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 6 )
 
 [node name="HBox" type="HBoxContainer" parent="VBox"]
-margin_top = 326.0
+margin_top = 322.0
 margin_right = 256.0
-margin_bottom = 388.0
+margin_bottom = 384.0
 
 [node name="BtnAdd" type="Button" parent="VBox/HBox"]
 margin_right = 82.0
@@ -70,7 +70,7 @@ text = "+"
 [node name="Label" type="Label" parent="VBox/HBox"]
 margin_left = 86.0
 margin_top = 2.0
-margin_right = 168.0
+margin_right = 169.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 theme = ExtResource( 2 )
@@ -80,7 +80,7 @@ __meta__ = {
 }
 
 [node name="BtnSubtract" type="Button" parent="VBox/HBox"]
-margin_left = 172.0
+margin_left = 173.0
 margin_right = 256.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 50, 50 )

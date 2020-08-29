@@ -1,0 +1,53 @@
+[gd_scene format=2]
+
+[node name="PopupPanel" type="PopupPanel"]
+visible = true
+margin_left = 969.0
+margin_right = 1353.0
+margin_bottom = 214.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 10.0
+margin_top = 15.0
+margin_right = 374.0
+margin_bottom = 199.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+margin_right = 364.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+text = "Delete?"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 104.0
+margin_right = 364.0
+margin_bottom = 184.0
+
+[node name="BtnOK" type="Button" parent="VBoxContainer/HBox"]
+margin_right = 180.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 180, 80 )
+size_flags_horizontal = 3
+text = "OK"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnCancel" type="Button" parent="VBoxContainer/HBox"]
+margin_left = 184.0
+margin_right = 364.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 180, 80 )
+size_flags_horizontal = 3
+text = "Cancel"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/UI_theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/UI/plus.png" type="Texture" id=2]
 [ext_resource path="res://scripts/FeatureBuilder.gd" type="Script" id=3]
+[ext_resource path="res://scenes/helper/DeleteConfirmation.tscn" type="PackedScene" id=4]
 
 [node name="FeatureBuilder" type="HBoxContainer"]
 margin_right = 1080.0
@@ -16,27 +17,24 @@ __meta__ = {
 }
 
 [node name="BtnAdd" type="Button" parent="."]
-margin_left = 484.0
-margin_right = 596.0
-margin_bottom = 108.0
+margin_right = 112.0
+margin_bottom = 214.0
 theme = ExtResource( 1 )
 icon = ExtResource( 2 )
 
 [node name="TxtLabel" type="LineEdit" parent="."]
-visible = false
 margin_left = 116.0
-margin_right = 931.0
-margin_bottom = 108.0
+margin_right = 440.0
+margin_bottom = 214.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "write here..."
 
 [node name="SpinBox" type="SpinBox" parent="."]
-visible = false
-margin_left = 507.0
-margin_right = 931.0
-margin_bottom = 108.0
+margin_left = 444.0
+margin_right = 816.0
+margin_bottom = 214.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 max_value = 10.0
@@ -44,63 +42,11 @@ rounded = true
 prefix = "Amount"
 
 [node name="BtnDelete" type="Button" parent="."]
-visible = false
-margin_left = 525.0
-margin_right = 670.0
-margin_bottom = 108.0
+margin_left = 820.0
+margin_right = 965.0
+margin_bottom = 214.0
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "Delete"
 
-[node name="PopupPanel" type="PopupPanel" parent="."]
-margin_left = 348.0
-margin_right = 732.0
-margin_bottom = 214.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PopupPanel"]
-margin_left = 10.0
-margin_top = 15.0
-margin_right = 374.0
-margin_bottom = 199.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="PopupPanel/VBoxContainer"]
-margin_right = 364.0
-margin_bottom = 100.0
-rect_min_size = Vector2( 0, 100 )
-text = "Delete?"
-align = 1
-valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HBox" type="HBoxContainer" parent="PopupPanel/VBoxContainer"]
-margin_top = 104.0
-margin_right = 364.0
-margin_bottom = 184.0
-
-[node name="BtnOK" type="Button" parent="PopupPanel/VBoxContainer/HBox"]
-margin_right = 180.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 180, 80 )
-size_flags_horizontal = 3
-text = "OK"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="BtnCancel" type="Button" parent="PopupPanel/VBoxContainer/HBox"]
-margin_left = 184.0
-margin_right = 364.0
-margin_bottom = 80.0
-rect_min_size = Vector2( 180, 80 )
-size_flags_horizontal = 3
-text = "Cancel"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-[connection signal="pressed" from="PopupPanel/VBoxContainer/HBox/BtnOK" to="." method="_on_BtnOK_pressed"]
-[connection signal="pressed" from="PopupPanel/VBoxContainer/HBox/BtnCancel" to="." method="_on_BtnCancel_pressed"]
+[node name="PopupPanel" parent="." instance=ExtResource( 4 )]

@@ -12,6 +12,7 @@ const build_specs = {"content": {"settings":{"canDelete":false},
 						"current_die":["maximum_die"] },
 					"instructions":{"canAdd":false}}
 
+func init
 
 func load_die_image(value : int):
 	if value > 0:

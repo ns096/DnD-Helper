@@ -9,19 +9,13 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
-"class": "BaseFeatureBuilder",
-"language": "GDScript",
+"base": "Node",
+"class": @"BaseFeatureBuilder",
+"language": @"GDScript",
 "path": "res://widgets/BaseFeatureBuilder.gd"
-}, {
-"base": "Reference",
-"class": "BaseWidget",
-"language": "GDScript",
-"path": "res://widgets/BaseWidget.gd"
 } ]
 _global_script_class_icons={
-"BaseFeatureBuilder": "",
-"BaseWidget": ""
+@"BaseFeatureBuilder": ""
 }
 
 [application]
