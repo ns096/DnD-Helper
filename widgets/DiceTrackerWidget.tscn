@@ -25,6 +25,7 @@ __meta__ = {
 "_edit_use_anchors_": false,
 "_editor_description_": ""
 }
+builderPath = "res://widgets/DiceTrackerBuilder.tscn"
 dice_textures = [ ExtResource( 7 ), ExtResource( 10 ), ExtResource( 4 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 5 ) ]
 
 [node name="VBox" type="VBoxContainer" parent="."]

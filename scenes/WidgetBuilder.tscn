@@ -20,12 +20,11 @@ __meta__ = {
 
 [node name="WidgetPreview" type="MarginContainer" parent="."]
 margin_right = 1080.0
-margin_bottom = 1920.0
+margin_bottom = 964.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="WidgetMaker" type="VBoxContainer" parent="."]
-visible = false
+[node name="FeatureBuilder" type="Control" parent="."]
 margin_top = 964.0
 margin_right = 1080.0
 margin_bottom = 1920.0

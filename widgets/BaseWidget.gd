@@ -16,14 +16,20 @@ extends Control
 #implement empty functions
 #add the neccessary stuff to WidgetBuilder/ FeatureBuilder, so it can edit it
 #DynamicWidgetPage needs to be able to add and instance it 
+
+export(String) var builderPath
+
 signal on_user_interaction(self_reference)
 signal on_release_drag_widget(self_reference)
 signal on_start_drag_widget(self_reference)
 signal on_holding_press(self_reference)
+
 onready var bounding_box = Rect2(rect_position,rect_size)
 
-export var FeatureBuilder : Resource
+
+
 var current_data = null
+
 #var default_data = null
 #every widget should have the red_dot for dragging
 func _ready():
@@ -36,7 +42,10 @@ func _ready():
 func get_data():
 	return current_data
 
-
+func get_builder():
+	var builder : BaseFeatureBuilder = load(builderPath).instance()
+	builder.setup_FeatureBuilder(current_data)
+	return builder
 
 #Widget needs to construct itself with Dictionary Data
 #Same Data has to be stored then in save file

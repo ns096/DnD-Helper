@@ -1,5 +1,7 @@
 extends HBoxContainer
 
+#DEPRECATED
+
 #WidgetBuilder instances one or more FeatureBuilder children depending on the widget_type
 #FeatureBuilder then displays the correct options and sends the current specs to WidgetBuilder
 
@@ -67,7 +69,7 @@ func setup_LineEdit(value:="write here", feature:="test"):
 	add_child(feature_LineEdit)
 	return feature_LineEdit
 
-func setup_SpinBox(value,min_size:=0,max_size:=10,step := 1, feature:="test"):
+func setup_SpinBox(value, min_size:=0, max_size:=10, step := 1, feature:="test"):
 	var feature_SpinBox = $SpinBox.duplicate()
 	feature_SpinBox.value = value
 	feature_SpinBox.min_value = min_size

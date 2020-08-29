@@ -34,7 +34,7 @@ var roman_numerals = ["I","II","III","IV","V","VI","VII","VIII","IX"]
 
 
 var default_data = {"widget_type": "SpellSlotWidget","widget_size":Vector2(2,3),
-				"content": [{"feature_name":"Spell Slots","class_level": 6,"used_slots":[0,0,0,0,0,0,0,0,0]}]}
+				"content": {"feature_name":"Spell Slots","class_level": 6,"used_slots":[0,0,0,0,0,0,0,0,0]}}
 
 const build_specs = {"content": {"settings":{"canDelete":false},"feature_name":["LineEdit"],"class_level":["SpinBox",1,20],"used_slots":["max_marker"] },
 					"instructions":{"canAdd":false}}				
@@ -50,7 +50,7 @@ func construct_widget(specifications : Dictionary):
 					used_slots = feature.used_slots
 				else:
 					used_slots = empty_slots
-				current_data.content[0].used_slots = used_slots
+				current_data.content.used_slots = used_slots
 				var VerticalContainer = VBoxContainer.new()
 				var SpellSlotLabel = Label.new()
 				SpellSlotLabel.theme = theme
@@ -89,15 +89,15 @@ func make_spell_slots(slot_level, max_slots, used_slots):
 
 	#Toggling checkbox calls toggled event
 	#thats why current_data needs to get reset manually
-	current_data.content[0].used_slots[slot_level] = used_slots
+	current_data.content.used_slots[slot_level] = used_slots
 	return ContainerForMarker
 
 func _on_checkbox_pressed(checkbox_state,slot_level):
 	#print("toggled ", checkbox_state," row: ", row)
 	if checkbox_state:
-		current_data.content[0].used_slots[slot_level] += 1
+		current_data.content.used_slots[slot_level] += 1
 	else:
-		current_data.content[0].used_slots[slot_level] -= 1
+		current_data.content.used_slots[slot_level] -= 1
 	#print(current_data)
 	emit_signal("on_user_interaction",self)
 

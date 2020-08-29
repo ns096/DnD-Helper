@@ -14,5 +14,17 @@ func _ready():
 func setup_FeatureBuilder(feature_data = null):
 	pass
 
-func get_specs():
+func collect_specs():
+	pass	
+
+func get_specification():
+	collect_specs()
 	return feature_specification
+
+
+func setup_LineEdit(targetNode : LineEdit, value:="write here"):
+	targetNode.text = value
+
+
+func setup_SpinBox(targetSpinBox : SpinBox, value := 0):
+	targetSpinBox.value = value
