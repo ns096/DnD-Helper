@@ -2,9 +2,9 @@
 
 [ext_resource path="res://assets/UI_theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/font/LibreBaskerville-Bold.otf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/paper_theme.tres" type="Theme" id=3]
-[ext_resource path="res://widgets/BannerWidget.gd" type="Script" id=4]
-[ext_resource path="res://assets/UI/banner.png" type="Texture" id=5]
+[ext_resource path="res://widgets/BannerWidget/BannerWidget.gd" type="Script" id=3]
+[ext_resource path="res://assets/UI/banner.png" type="Texture" id=4]
+[ext_resource path="res://assets/paper_theme.tres" type="Theme" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 48
@@ -18,17 +18,18 @@ margin_bottom = 277.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 1 )
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 patch_margin_left = 96
 patch_margin_top = 113
 patch_margin_right = 97
 patch_margin_bottom = 129
 axis_stretch_horizontal = 2
 axis_stretch_vertical = 2
-script = ExtResource( 4 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+builderPath = "res://widgets/BannerWidget/BannerBuilder.tscn"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 25.0
@@ -46,7 +47,7 @@ margin_right = 458.0
 margin_bottom = 78.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource( 3 )
+theme = ExtResource( 5 )
 custom_fonts/font = SubResource( 1 )
 text = "Mr. Fancy Pants"
 __meta__ = {

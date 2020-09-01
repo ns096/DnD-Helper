@@ -1,4 +1,4 @@
-extends "BaseWidget.gd"
+extends BaseWidget
 
 const default_data = {"widget_type": "BasicWidget","widget_size": Vector2(2,2), 
 					"content": [

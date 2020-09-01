@@ -30,11 +30,11 @@
 				"widget_type": "BasicWidget"
 			},
 			{
-				"content": [
+				"content": 
 					{
 						"feature_name": "Fancy Banner"
 					}
-				],
+				,
 				"pos_x": 0,
 				"pos_y": 0,
 				"size_x": 4,

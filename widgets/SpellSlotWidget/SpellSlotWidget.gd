@@ -1,4 +1,4 @@
-extends "BaseWidget.gd"
+extends BaseWidget
 
 
 func _ready():
@@ -43,27 +43,26 @@ const build_specs = {"content": {"settings":{"canDelete":false},"feature_name":[
 func construct_widget(specifications : Dictionary):
 	current_data = specifications
 	if specifications.has("content"):
-		for feature in specifications.content:
-			if feature.has("class_level"):
-				var used_slots
-				if feature.has("used_slots"):
-					used_slots = feature.used_slots
-				else:
-					used_slots = empty_slots
-				current_data.content.used_slots = used_slots
-				var VerticalContainer = VBoxContainer.new()
-				var SpellSlotLabel = Label.new()
-				SpellSlotLabel.theme = theme
-				if feature.has("feature_name"):
-					SpellSlotLabel.text = feature.feature_name
-				else:
-					SpellSlotLabel.text = "Spell Slots"
-				VerticalContainer.add_child(SpellSlotLabel)
-				SpellSlotLabel.mouse_filter = MOUSE_FILTER_IGNORE
-				var available_slots = spell_slot_progression_dnd_5e[feature.class_level-1]
-				for slot_level in range(0,available_slots.size()):
-					VerticalContainer.add_child(make_spell_slots(slot_level,available_slots[slot_level],used_slots[slot_level]))
-				$CenterContainer.add_child(VerticalContainer)
+		if specifications.content.has("class_level"):
+			var used_slots
+			if specifications.content.has("used_slots"):
+				used_slots = specifications.content.used_slots
+			else:
+				used_slots = empty_slots
+			current_data.content.used_slots = used_slots
+			var VerticalContainer = VBoxContainer.new()
+			var SpellSlotLabel = Label.new()
+			SpellSlotLabel.theme = theme
+			if specifications.content.has("feature_name"):
+				SpellSlotLabel.text = specifications.content.feature_name
+			else:
+				SpellSlotLabel.text = "Spell Slots"
+			VerticalContainer.add_child(SpellSlotLabel)
+			SpellSlotLabel.mouse_filter = MOUSE_FILTER_IGNORE
+			var available_slots = spell_slot_progression_dnd_5e[specifications.content.class_level-1]
+			for slot_level in range(0,available_slots.size()):
+				VerticalContainer.add_child(make_spell_slots(slot_level,available_slots[slot_level],used_slots[slot_level]))
+			$CenterContainer.add_child(VerticalContainer)
 	else:
 		construct_widget(default_data)
 

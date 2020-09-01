@@ -12,7 +12,8 @@ func _ready():
 	pass
 
 func setup_FeatureBuilder(feature_data = null):
-	pass
+	feature_specification = feature_data
+	
 
 func collect_specs():
 	pass	

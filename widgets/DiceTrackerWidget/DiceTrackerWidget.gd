@@ -4,7 +4,7 @@ export(Array, Texture) var dice_textures
 
 var dice_names = ["d4","d6","d8","d10","d12","d20"]
 
-var default_data = 	{"widget_type": "DiceTrackerWidget","widget_size":Vector2(4,4),
+var default_data = 	{"widget_type": "DiceTrackerWidget","widget_size":Vector2(3,3),
 					"content": {"feature_name":"Example","current_die": 0,"maximum_die":5}}
 
 const build_specs = {"content": {"settings":{"canDelete":false},
@@ -12,7 +12,6 @@ const build_specs = {"content": {"settings":{"canDelete":false},
 						"maximum_die":["SpinBox",0,5],
 						"current_die":["maximum_die"] },
 					"instructions":{"canAdd":false}}
-
 
 
 func init():

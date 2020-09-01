@@ -1,6 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://widgets/HealthPointsTrackerBuilder.gd" type="Script" id=1]
+[ext_resource path="res://widgets/HealthPointsTrackerWidget/HealthPointsTrackerBuilder.gd" type="Script" id=1]
+
+
 
 [node name="HealthPointsTrackerBuilder" type="Control"]
 anchor_right = 1.0
@@ -61,6 +63,8 @@ margin_right = 799.0
 margin_bottom = 80.0
 rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
+min_value = -10000.0
+max_value = 10000.0
 
 [node name="HBox3" type="HBoxContainer" parent="VBox"]
 margin_top = 148.0
@@ -85,3 +89,5 @@ margin_bottom = 80.0
 rect_min_size = Vector2( 0, 80 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
+min_value = -10000.0
+max_value = 10000.0

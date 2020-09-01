@@ -1,7 +1,6 @@
 [gd_scene format=2]
 
 [node name="PopupPanel" type="PopupPanel"]
-visible = true
 margin_left = 969.0
 margin_right = 1353.0
 margin_bottom = 214.0
