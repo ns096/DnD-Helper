@@ -87,9 +87,6 @@ func _on_BtnOK_pressed():
 
 	delete_target.queue_free()
 
-
-
-
 func _on_BtnCancel_pressed():
 	$PopupPanel.hide()
 	delete_target = null

@@ -59,7 +59,9 @@ func _input(event):
 			holding_press = false
 			time_holding_down = 0.0
 	if Input.is_key_pressed(KEY_P):
-		GlobalHelper.save_screenshot()
+		var file = "user://preview.png"
+		var img =GlobalHelper.take_screenshot(2)
+		img.save_png(file)
 
 func _process(delta):
 	if holding_press && GlobalHelper.UI_focus == self && GlobalHelper.dragging_widget == false:

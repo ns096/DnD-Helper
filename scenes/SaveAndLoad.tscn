@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scripts/SaveAndLoad.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI_theme.tres" type="Theme" id=2]
+[ext_resource path="res://scenes/helper/DeleteConfirmation.tscn" type="PackedScene" id=3]
 
 [node name="SaveAndLoad" type="VBoxContainer"]
 anchor_right = 1.0
@@ -18,4 +19,14 @@ __meta__ = {
 margin_right = 1080.0
 margin_bottom = 62.0
 text = "Make New Save"
+
+[node name="PopupPanel" parent="." instance=ExtResource( 3 )]
+margin_left = 1179.61
+margin_top = 332.28
+margin_right = 1563.61
+margin_bottom = 546.28
 [connection signal="pressed" from="NewSave" to="." method="_on_NewSave_pressed"]
+[connection signal="pressed" from="PopupPanel/VBoxContainer/HBox/BtnOK" to="." method="_on_BtnOK_pressed"]
+[connection signal="pressed" from="PopupPanel/VBoxContainer/HBox/BtnCancel" to="." method="_on_BtnCancel_pressed"]
+
+[editable path="PopupPanel"]

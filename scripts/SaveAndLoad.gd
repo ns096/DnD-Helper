@@ -88,6 +88,12 @@ func prepare_empty_folder():
 		if dir.copy("res://saves/default.json", "user://autosave.json") != 0:
 			$NewSave.text = "Cant_: %s" % dir.copy("res://saves/default.json", "user://autosave.json")
 
+	if not file.file_exists("user://preview_images/default_preview.png"):
+		var dir = Directory.new()
+
+		if dir.copy("res://saves/default_preview.png", "user://preview_images/default_preview.png") != 0:
+			print(dir.copy("res://saves/default_preview.png", "user://default_preview.png"))
+
 #take default_save
 func load_defaultsave():
 	get_save_by_saveslot("default")
@@ -283,3 +289,11 @@ func parse_json_to_widget_page(json : Array) -> Dictionary:
 						"content": data.content}
 		widget_page[Vector2(data.pos_x,data.pos_y)] = widget
 	return widget_page
+
+#Delete Confirmation Popup Panel
+func _on_BtnOK_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_BtnCancel_pressed() -> void:
+	pass # Replace with function body.

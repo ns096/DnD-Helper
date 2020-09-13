@@ -1,6 +1,5 @@
 extends Control
 
-var OriginalFeatureBuilder
 var PreviewWidget
 var FeatureBuilder
 
@@ -14,8 +13,6 @@ const content_description = {"BasicWidget":["feature_name","max_marker"],
 							"HealthPointsTrackerWidget":["feature_name","max_hp"]
 							}
 
-func _ready():
-	OriginalFeatureBuilder = load("res://scenes/FeatureBuilder.tscn")
 
 var update_preview_timer = 0.0
 func _process(delta):

@@ -6,78 +6,112 @@
 		},
 		"widget_page": [
 			{
-				"content": [
-					{
-						"cur_marker": 0,
-						"feature_name": "Basic Widget",
-						"max_marker": 0
-					},
-					{
-						"cur_marker": 0,
-						"feature_name": "",
-						"max_marker": 4
-					},
-					{
-						"cur_marker": 2,
-						"feature_name": "Extra",
-						"max_marker": 2
-					}
-				],
-				"pos_x": 0,
-				"pos_y": 1,
-				"size_x": 2,
-				"size_y": 2,
-				"widget_type": "BasicWidget"
-			},
-			{
-				"content": 
-					{
-						"feature_name": "Fancy Banner"
-					}
-				,
+				"content": {
+					"feature_name": "Unkillable Character #2"
+				},
 				"pos_x": 0,
 				"pos_y": 0,
-				"size_x": 4,
+				"size_x": 5,
 				"size_y": 1,
 				"widget_type": "BannerWidget"
 			},
 			{
-				"content": 
-					{
-						"class_level": 5,
-						"feature_name": "Spell Slots",
-						"used_slots": [
-							2,
-							2,
-							0,
-							0,
-							0,
-							0,
-							0,
-							0,
-							0
-						]
-					}
-				,
-				"pos_x": 2,
-				"pos_y": 2,
+				"content": {
+					"current_die": 4,
+					"feature_name": "Example",
+					"maximum_die": 5
+				},
+				"pos_x": 0,
+				"pos_y": 4,
+				"size_x": 2,
+				"size_y": 3,
+				"widget_type": "DiceTrackerWidget"
+			},
+			{
+				"content": {
+					"class_level": 14,
+					"feature_name": "Spell Slots",
+					"used_slots": [
+						2,
+						2,
+						0,
+						1,
+						2,
+						0,
+						1,
+						0,
+						0
+					]
+				},
+				"pos_x": 4,
+				"pos_y": 3,
 				"size_x": 2,
 				"size_y": 4,
 				"widget_type": "SpellSlotWidget"
 			},
 			{
-				"content": 
-					{
-						"current_die": 2,
-						"feature_name": "Example",
-						"maximum_die": 5
-					}
-				,
+				"content": {
+					"feature_name": "Fancy Banner"
+				},
 				"pos_x": 3,
-				"pos_y": 6,
+				"pos_y": 7,
+				"size_x": 3,
+				"size_y": 1,
+				"widget_type": "BannerWidget"
+			},
+			{
+				"content": [
+					{
+						"cur_marker": 0,
+						"current_marker": 0,
+						"feature_name": "COOL STUFF",
+						"max_marker": 0
+					},
+					{
+						"cur_marker": 2,
+						"current_marker": 0,
+						"feature_name": "",
+						"max_marker": 4
+					}
+				],
+				"pos_x": 3,
+				"pos_y": 8,
 				"size_x": 2,
-				"size_y": 3,
-				"widget_type": "DiceTrackerWidget"
+				"size_y": 1,
+				"widget_type": "BasicWidget"
+			},
+			{
+				"content": [
+					{
+						"cur_marker": 0,
+						"current_marker": 0,
+						"feature_name": "My Food And Stuff",
+						"max_marker": 0
+					},
+					{
+						"cur_marker": 0,
+						"current_marker": 0,
+						"feature_name": "",
+						"max_marker": 0
+					},
+					{
+						"cur_marker": 4,
+						"current_marker": 2,
+						"feature_name": "Food",
+						"max_marker": 5
+					},
+					{
+						"cur_marker": 2,
+						"current_marker": 0,
+						"feature_name": "Water",
+						"max_marker": 5
+					}
+				],
+				"pos_x": 0,
+				"pos_y": 2,
+				"size_x": 3,
+				"size_y": 2,
+				"widget_type": "BasicWidget"
 			}
 		]
 	},

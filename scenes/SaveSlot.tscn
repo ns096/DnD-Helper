@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/SaveSlot.gd" type="Script" id=1]
 [ext_resource path="res://assets/UI_theme.tres" type="Theme" id=2]
 [ext_resource path="res://assets/paper_theme.tres" type="Theme" id=3]
+[ext_resource path="res://saves/default_preview.png" type="Texture" id=4]
 
 [node name="SaveSlot" type="MarginContainer"]
 anchor_right = 1.0
@@ -17,52 +18,64 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="H" type="HBoxContainer" parent="."]
 margin_left = 8.0
 margin_top = 8.0
 margin_right = 1072.0
 margin_bottom = 1912.0
 
-[node name="HBoxTop" type="HBoxContainer" parent="VBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="H"]
+margin_right = 126.0
+margin_bottom = 1904.0
+texture = ExtResource( 4 )
+
+[node name="V" type="VBoxContainer" parent="H"]
+margin_left = 130.0
 margin_right = 1064.0
+margin_bottom = 1904.0
+rect_min_size = Vector2( 0, 200 )
+size_flags_horizontal = 3
+
+[node name="HBox1" type="HBoxContainer" parent="H/V"]
+margin_right = 934.0
 margin_bottom = 62.0
 
-[node name="Savename" type="Label" parent="VBoxContainer/HBoxTop"]
-margin_right = 757.0
+[node name="Savename" type="Label" parent="H/V/HBox1"]
+margin_right = 664.0
 margin_bottom = 62.0
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.5
 text = "Save 1"
 
-[node name="Date" type="Label" parent="VBoxContainer/HBoxTop"]
-margin_left = 761.0
-margin_right = 1064.0
+[node name="Date" type="Label" parent="H/V/HBox1"]
+margin_left = 668.0
+margin_right = 934.0
 margin_bottom = 62.0
 size_flags_horizontal = 3
 text = "31.05.2019"
 
-[node name="HBoxTop2" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBox2" type="HBoxContainer" parent="H/V"]
 margin_top = 66.0
-margin_right = 1064.0
+margin_right = 934.0
 margin_bottom = 128.0
 
-[node name="EditSavename" type="LineEdit" parent="VBoxContainer/HBoxTop2"]
-margin_right = 706.0
+[node name="EditSavename" type="LineEdit" parent="H/V/HBox2"]
+margin_right = 620.0
 margin_bottom = 62.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 2.0
 text = "savename"
 
-[node name="ButtonChangeName" type="Button" parent="VBoxContainer/HBoxTop2"]
-margin_left = 710.0
-margin_right = 1064.0
+[node name="ButtonChangeName" type="Button" parent="H/V/HBox2"]
+margin_left = 625.0
+margin_right = 934.0
 margin_bottom = 62.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Change Name"
 
-[node name="ButtonMakeDefault" type="CheckButton" parent="VBoxContainer/HBoxTop2"]
+[node name="ButtonMakeDefault" type="CheckButton" parent="H/V/HBox2"]
 visible = false
 margin_left = 712.0
 margin_right = 1064.0
@@ -72,34 +85,34 @@ size_flags_vertical = 3
 theme = ExtResource( 3 )
 text = "Default"
 
-[node name="HBoxTop3" type="HBoxContainer" parent="VBoxContainer"]
+[node name="HBox3" type="HBoxContainer" parent="H/V"]
 margin_top = 132.0
-margin_right = 1064.0
+margin_right = 934.0
 margin_bottom = 194.0
 
-[node name="ButtonSave" type="Button" parent="VBoxContainer/HBoxTop3"]
-margin_right = 352.0
+[node name="ButtonSave" type="Button" parent="H/V/HBox3"]
+margin_right = 308.0
 margin_bottom = 62.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Save"
 
-[node name="ButtonLoad" type="Button" parent="VBoxContainer/HBoxTop3"]
-margin_left = 356.0
-margin_right = 708.0
+[node name="ButtonLoad" type="Button" parent="H/V/HBox3"]
+margin_left = 312.0
+margin_right = 620.0
 margin_bottom = 62.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Load"
 
-[node name="ButtonDelete" type="Button" parent="VBoxContainer/HBoxTop3"]
-margin_left = 712.0
-margin_right = 1064.0
+[node name="ButtonDelete" type="Button" parent="H/V/HBox3"]
+margin_left = 625.0
+margin_right = 934.0
 margin_bottom = 62.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Delete"
-[connection signal="pressed" from="VBoxContainer/HBoxTop2/ButtonChangeName" to="." method="_on_ChangeNameButton_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxTop3/ButtonSave" to="." method="_on_ButtonSave_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxTop3/ButtonLoad" to="." method="_on_ButtonLoad_pressed"]
-[connection signal="pressed" from="VBoxContainer/HBoxTop3/ButtonDelete" to="." method="_on_ButtonDelete_pressed"]
+[connection signal="pressed" from="H/V/HBox2/ButtonChangeName" to="." method="_on_ChangeNameButton_pressed"]
+[connection signal="pressed" from="H/V/HBox3/ButtonSave" to="." method="_on_ButtonSave_pressed"]
+[connection signal="pressed" from="H/V/HBox3/ButtonLoad" to="." method="_on_ButtonLoad_pressed"]
+[connection signal="pressed" from="H/V/HBox3/ButtonDelete" to="." method="_on_ButtonDelete_pressed"]
