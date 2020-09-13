@@ -14,7 +14,7 @@ extends Control
 #to add a new widget:
 #make a widget scene implementing the right functionality
 #implement empty functions
-#add the neccessary stuff to WidgetBuilder/ FeatureBuilder, so it can edit it
+#write a specific FeatureBuilder and link it
 #DynamicWidgetPage needs to be able to add and instance it 
 
 export(String) var builderPath
@@ -27,6 +27,9 @@ signal on_holding_press(self_reference)
 onready var bounding_box = Rect2(rect_position,rect_size)
 
 var current_data = null
+var step_size : Vector2
+var widget_size : Vector2
+var page_position : Vector2
 
 #var default_data = null
 #every widget should have the red_dot for dragging
@@ -69,6 +72,9 @@ var holding_press = false
 #update the size of bounding box
 func _on_resized():
 	bounding_box.size = rect_size
+
+func set_steps(x_step, y_step):
+	step_size = Vector2(x_step, y_step)
 
 
 #input checks for if the event was inside the bounding box and if it's currently the UI_focus. 

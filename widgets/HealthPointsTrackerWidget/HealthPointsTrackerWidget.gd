@@ -22,7 +22,7 @@ func construct_widget(specifications):
 
 	if specifications.has("content"):
 
-		if specifications.content.has("maximum_die"):
+		if specifications.content.has("maximum_hp"):
 			current_data.content.maximum_hp = specifications.content.maximum_hp
 
 			if specifications.content.has("current_hp"):

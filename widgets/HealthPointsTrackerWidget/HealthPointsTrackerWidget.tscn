@@ -55,47 +55,48 @@ size_flags_vertical = 3
 theme = ExtResource( 3 )
 custom_fonts/font = SubResource( 1 )
 text = "40 / 50"
+align = 1
 
 [node name="HBox" type="HBoxContainer" parent="VBox"]
 margin_top = 164.0
 margin_right = 294.0
 margin_bottom = 226.0
 
-[node name="BtnAdd1" type="Button" parent="VBox/HBox"]
+[node name="BtnSubtract1" type="Button" parent="VBox/HBox"]
 margin_right = 145.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 3
-text = "+1"
+text = "-1"
 
-[node name="BtnSubtract1" type="Button" parent="VBox/HBox"]
+[node name="BtnAdd1" type="Button" parent="VBox/HBox"]
 margin_left = 149.0
 margin_right = 294.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 3
-text = "-1"
+text = "+1"
 
 [node name="HBox2" type="HBoxContainer" parent="VBox"]
 margin_top = 230.0
 margin_right = 294.0
 margin_bottom = 292.0
 
-[node name="BtnAdd10" type="Button" parent="VBox/HBox2"]
+[node name="BtnSubtract10" type="Button" parent="VBox/HBox2"]
 margin_right = 145.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 3
-text = "+10"
+text = "-10"
 
-[node name="BtnSubtract10" type="Button" parent="VBox/HBox2"]
+[node name="BtnAdd10" type="Button" parent="VBox/HBox2"]
 margin_left = 149.0
 margin_right = 294.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 3
-text = "-10"
-[connection signal="pressed" from="VBox/HBox/BtnAdd1" to="." method="_on_BtnAdd1_pressed"]
+text = "+10"
 [connection signal="pressed" from="VBox/HBox/BtnSubtract1" to="." method="_on_BtnSubtract1_pressed"]
-[connection signal="pressed" from="VBox/HBox2/BtnAdd10" to="." method="_on_BtnAdd10_pressed"]
+[connection signal="pressed" from="VBox/HBox/BtnAdd1" to="." method="_on_BtnAdd1_pressed"]
 [connection signal="pressed" from="VBox/HBox2/BtnSubtract10" to="." method="_on_BtnSubtract10_pressed"]
+[connection signal="pressed" from="VBox/HBox2/BtnAdd10" to="." method="_on_BtnAdd10_pressed"]

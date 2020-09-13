@@ -61,12 +61,12 @@ margin_top = 322.0
 margin_right = 256.0
 margin_bottom = 384.0
 
-[node name="BtnAdd" type="Button" parent="VBox/HBox"]
+[node name="BtnSubtract" type="Button" parent="VBox/HBox"]
 margin_right = 82.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 3
-text = "+"
+text = "-"
 
 [node name="Label" type="Label" parent="VBox/HBox"]
 margin_left = 86.0
@@ -80,12 +80,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="BtnSubtract" type="Button" parent="VBox/HBox"]
+[node name="BtnAdd" type="Button" parent="VBox/HBox"]
 margin_left = 173.0
 margin_right = 256.0
 margin_bottom = 62.0
 rect_min_size = Vector2( 50, 50 )
 size_flags_horizontal = 3
-text = "-"
-[connection signal="pressed" from="VBox/HBox/BtnAdd" to="." method="_on_BtnAdd_pressed"]
+text = "+"
 [connection signal="pressed" from="VBox/HBox/BtnSubtract" to="." method="_on_BtnSubtract_pressed"]
+[connection signal="pressed" from="VBox/HBox/BtnAdd" to="." method="_on_BtnAdd_pressed"]

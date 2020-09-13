@@ -74,3 +74,9 @@ margin_bottom = 108.0
 size_flags_vertical = 3
 theme = ExtResource( 1 )
 text = "Delete"
+[connection signal="pressed" from="PopupPanel/VBoxContainer/HBox/BtnOK" to="." method="_on_BtnOK_pressed"]
+[connection signal="pressed" from="PopupPanel/VBoxContainer/HBox/BtnCancel" to="." method="_on_BtnCancel_pressed"]
+[connection signal="pressed" from="Original/BtnAdd" to="Original" method="_on_BtnAdd_pressed"]
+[connection signal="pressed" from="Original/BtnDelete" to="Original" method="_on_BtnDelete_pressed"]
+
+[editable path="PopupPanel"]

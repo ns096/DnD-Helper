@@ -66,7 +66,10 @@ func collect_specification() -> Dictionary:
 func build_WidgetPreview():
 	if $WidgetPreview.get_child_count() > 0:
 		$WidgetPreview.get_child(0).queue_free()
-	var new_preview = load("res://widgets/%s.tscn" % current_widget_data.widget_type).instance()
+
+	var type = current_widget_data.widget_type
+	var node_path = "res://widgets/"+type+"/"+type+".tscn"
+	var new_preview = load(node_path).instance()
 	current_widget_data.content = collect_specification()
 	new_preview.construct_widget(current_widget_data)
 	$WidgetPreview.add_child(new_preview)
