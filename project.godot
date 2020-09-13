@@ -14,7 +14,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://widgets/BaseFeatureBuilder.gd"
 }, {
-"base": "Control",
+"base": "Reference",
 "class": "BaseWidget",
 "language": "GDScript",
 "path": "res://widgets/BaseWidget.gd"

@@ -57,3 +57,21 @@ func deep_copy(v):
 
 	else:
 		return v
+
+func getDateString() -> String:
+	var date = OS.get_datetime()
+	var date_string = ""
+	date_string += str(date["year"])
+	date_string += str(date["month"])
+	date_string += str(date["day"]) + "_"
+	date_string += str(date["hour"]) + "_"
+	date_string += str(date["minute"])
+	return date_string
+		
+func take_screenshot(shrink_factor := 0) -> Image:
+	var image = get_viewport().get_texture().get_data()
+	image.flip_y()
+	for _x in range(shrink_factor):
+		image.shrink_x2()
+	
+	return image

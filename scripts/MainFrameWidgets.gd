@@ -68,6 +68,7 @@ func construct_WidgetPage(widget_page):
 	DynamicWidgetPage.construct_widget_page(widget_page)
 
 func _on_save_data_loaded(save_data):
+	
 	construct_WidgetPage(save_data)
 	_on_Widget_Page_pressed()
 

@@ -58,6 +58,8 @@ func _input(event):
 		else:
 			holding_press = false
 			time_holding_down = 0.0
+	if Input.is_key_pressed(KEY_P):
+		GlobalHelper.save_screenshot()
 
 func _process(delta):
 	if holding_press && GlobalHelper.UI_focus == self && GlobalHelper.dragging_widget == false:
@@ -283,3 +285,4 @@ func DEV_fill_page():
 
 	current_widget_page = ALL_MY_WIDGETS
 	build_widget_page(current_widget_page)
+
