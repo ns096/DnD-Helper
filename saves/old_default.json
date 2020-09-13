@@ -30,7 +30,7 @@
 				"widget_type": "BasicWidget"
 			},
 			{
-				"content": [
+				"content": 
 					{
 						"class_level": 5,
 						"feature_name": "Spell Slots",
@@ -46,7 +46,7 @@
 							0
 						]
 					}
-				],
+				,
 				"pos_x": 3,
 				"pos_y": 3,
 				"size_x": 2,

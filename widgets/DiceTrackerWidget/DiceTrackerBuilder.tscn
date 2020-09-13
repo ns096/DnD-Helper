@@ -1,0 +1,72 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://widgets/DiceTrackerWidget/DiceTrackerBuilder.gd" type="Script" id=1]
+
+[node name="DiceTrackerBuilder" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_right = 800.0
+margin_bottom = 201.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Widget Name" type="Label" parent="VBox"]
+margin_right = 800.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 800, 0 )
+text = "Dice Tracker"
+
+[node name="HBox1" type="HBoxContainer" parent="VBox"]
+margin_top = 37.0
+margin_right = 800.0
+margin_bottom = 117.0
+rect_min_size = Vector2( 0, 80 )
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBox/HBox1"]
+margin_top = 23.0
+margin_right = 398.0
+margin_bottom = 56.0
+size_flags_horizontal = 3
+text = "Name:"
+valign = 1
+
+[node name="name" type="LineEdit" parent="VBox/HBox1"]
+margin_left = 402.0
+margin_right = 800.0
+margin_bottom = 80.0
+size_flags_horizontal = 3
+
+[node name="HBox2" type="HBoxContainer" parent="VBox"]
+margin_top = 121.0
+margin_right = 800.0
+margin_bottom = 201.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="VBox/HBox2"]
+margin_top = 23.0
+margin_right = 398.0
+margin_bottom = 56.0
+size_flags_horizontal = 3
+text = "Maximum Die:"
+valign = 1
+
+[node name="Maximum" type="SpinBox" parent="VBox/HBox2"]
+margin_left = 402.0
+margin_right = 800.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 0, 80 )
+size_flags_horizontal = 3
+max_value = 5.0

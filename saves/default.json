@@ -30,11 +30,11 @@
 				"widget_type": "BasicWidget"
 			},
 			{
-				"content": [
+				"content": 
 					{
 						"feature_name": "Fancy Banner"
 					}
-				],
+				,
 				"pos_x": 0,
 				"pos_y": 0,
 				"size_x": 4,
@@ -42,7 +42,7 @@
 				"widget_type": "BannerWidget"
 			},
 			{
-				"content": [
+				"content": 
 					{
 						"class_level": 5,
 						"feature_name": "Spell Slots",
@@ -58,7 +58,7 @@
 							0
 						]
 					}
-				],
+				,
 				"pos_x": 2,
 				"pos_y": 2,
 				"size_x": 2,
@@ -66,13 +66,13 @@
 				"widget_type": "SpellSlotWidget"
 			},
 			{
-				"content": [
+				"content": 
 					{
 						"current_die": 2,
 						"feature_name": "Example",
 						"maximum_die": 5
 					}
-				],
+				,
 				"pos_x": 3,
 				"pos_y": 6,
 				"size_x": 2,

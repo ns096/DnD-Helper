@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://widgets/BannerWidget/BannerBuilder.gd" type="Script" id=1]
+
+[node name="BannerBuilder" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_right = 798.0
+margin_bottom = 87.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBox1" type="HBoxContainer" parent="VBox"]
+margin_right = 798.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBox/HBox1"]
+margin_top = 13.0
+margin_right = 326.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+text = "Feature Name"
+valign = 1
+
+[node name="LineEdit" type="LineEdit" parent="VBox/HBox1"]
+margin_left = 330.0
+margin_right = 798.0
+margin_bottom = 60.0
+rect_min_size = Vector2( 0, 60 )
+size_flags_horizontal = 3

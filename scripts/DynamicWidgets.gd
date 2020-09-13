@@ -51,7 +51,6 @@ func setup_PopupAddWidget(widget_paths):
 		popup_box.add_child(button)
 
 
-
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.is_pressed():
@@ -70,7 +69,6 @@ func _process(delta):
 				$PopupAddWidget.popup()
 			time_holding_down = 0.0
 			holding_press = false
-
 
 #return also setting when accessed outside
 func widgetpage_get():
@@ -121,7 +119,8 @@ func construct_widget_page(savedata : Dictionary):
 #this class keeps track of page position and specifications
 #Widget keeps track of specifications for user interactions and returning data later	
 func build_widget(page_position, specifications):
-	var node_path = "res://scenes/%s.tscn" % specifications.widget_type
+	var type = specifications.widget_type
+	var node_path = "res://widgets/"+type+"/"+type+".tscn"
 	var DynamicWidget = load(node_path).instance()
 	DynamicWidget.connect("on_release_drag_widget", self, "try_snap_widget")
 	DynamicWidget.connect("on_start_drag_widget", self, "init_start_drag_widget")
@@ -132,8 +131,8 @@ func build_widget(page_position, specifications):
 	widget_page_node_references[page_position] = DynamicWidget
 	#Widget takes specifications and constructs itself
 	DynamicWidget.construct_widget(specifications)
-	#Widget shouldnt directly care about screen size
-	#That why its size and position gets changed here
+	DynamicWidget.set_steps(x_step, y_step)
+	
 	DynamicWidget.rect_size = Vector2(x_step*(specifications.widget_size.x), y_step*(specifications.widget_size.y))
 	DynamicWidget.rect_position = page_coord_to_screen_coord(page_position)
 	
@@ -263,29 +262,9 @@ func _on_PopupResize_Submit_pressed() -> void:
 	selected_widget_key = null
 	emit_signal("data_changed",current_widget_page)
 
-#PopupAddWidget calls the following functions
-func _on_BtnBasicWidget_pressed() -> void:
-	var basic_widget_data = {"widget_type": "BasicWidget","widget_size": Vector2(2,2), "content": [{"feature_name":"Basic Widget","cur_marker":0, "max_marker": 0},{"feature_name":"","cur_marker":0,"max_marker":4},{"feature_name":"Extra", "cur_marker":0, "max_marker": 2}]}
-	current_widget_page[selected_widget_key] = basic_widget_data
-	update_widget_page()
-	$PopupAddWidget.visible = false
-	selected_widget_key = null
-						
-func _on_BtnSpellSlotWidget_pressed() -> void:
-	var spellslot_widget_data = {"widget_type": "SpellSlotWidget","widget_size":Vector2(2,3),"content": [{"feature_name":"Spell Slots","class_level": 6,"used_slots":[0,0,0,0,0,0,0,0,0]}]}
-	current_widget_page[selected_widget_key] = spellslot_widget_data
-	update_widget_page()
-	$PopupAddWidget.visible = false
-	selected_widget_key = null
 
-func _on_BtnDiceTrackerWidget_pressed() -> void:
-	var dicetracker_widget_data = {"widget_type": "DiceTrackerWidget","widget_size":Vector2(2,3),"content": [{"feature_name":"Ammo","current_die": 3,"maximum_die":5}]}
-	current_widget_page[selected_widget_key] = dicetracker_widget_data
-	update_widget_page()
-	$PopupAddWidget.visible = false
-	selected_widget_key = null
 
-#TODO new widget popup easier to add new data 
+#widget popup easier to add new data 
 func _on_new_widget(widget_data):
 	print(widget_data)
 	current_widget_page[selected_widget_key] = widget_data
@@ -304,6 +283,3 @@ func DEV_fill_page():
 
 	current_widget_page = ALL_MY_WIDGETS
 	build_widget_page(current_widget_page)
-	
-
-

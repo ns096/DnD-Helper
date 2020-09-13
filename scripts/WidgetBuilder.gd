@@ -2,12 +2,17 @@ extends Control
 
 var OriginalFeatureBuilder
 var PreviewWidget
+var FeatureBuilder
+
 onready var current_widget_data = null
 var old_widget_data
 var build_specs
+var builder : BaseFeatureBuilder
 const content_description = {"BasicWidget":["feature_name","max_marker"],
 							"SpellSlotWidget":["feature_name","class_level"],
-							"DiceTrackerWidget":["feature_name","maximum_die"]}
+							"DiceTrackerWidget":["feature_name","maximum_die"],
+							"HealthPointsTrackerWidget":["feature_name","max_hp"]
+							}
 
 func _ready():
 	OriginalFeatureBuilder = load("res://scenes/FeatureBuilder.tscn")
@@ -20,77 +25,54 @@ func _process(delta):
 	if update_preview_timer >= 0.5 && current_widget_data != null:
 		build_WidgetPreview()
 
-#old		
-func add_FeatureBuilder(widget_type,description,feature_specs = null):
-	var new_FeatureBuilder = OriginalFeatureBuilder.instance()
-	$WidgetMaker.add_child(new_FeatureBuilder)
-	new_FeatureBuilder.connect("BtnAdd_pressed",self,"_on_BtnAdd_pressed")
-	new_FeatureBuilder.connect("BtnDelete_pressed",self,"_on_BtnDelete_pressed",[new_FeatureBuilder])
-	new_FeatureBuilder.construct_FeatureBuilder(widget_type,description,feature_specs)
 
-func _add_FeatureBuilder(build_specs, current_data, hide := 0):
-	var new_FeatureBuilder = OriginalFeatureBuilder.instance()
-	$WidgetMaker.add_child(new_FeatureBuilder)
-	new_FeatureBuilder.connect("BtnAdd_pressed",self,"_on_BtnAdd_pressed")
-	new_FeatureBuilder.connect("BtnDelete_pressed",self,"_on_BtnDelete_pressed",[new_FeatureBuilder])
-	new_FeatureBuilder.setup_FeatureBuilder(build_specs, current_data, hide)
-	return new_FeatureBuilder
+func add_FeatureBuilder(specification, builderPath):
+	builder = load(builderPath).instance()
+	builder.setup_FeatureBuilder(specification)
+	$FeatureBuilder.add_child(builder)
 
+func load_feature_builder(builder_path : String):
+	FeatureBuilder = load(builder_path).instance()
+	add_child(FeatureBuilder)
+
+
+func get_new_widget_specs() -> Dictionary:
+	if FeatureBuilder.has_method('get_specs'):
+		return FeatureBuilder.get_specs()
+	else:
+		return {'Error':'Method get specs not found'}
 
 func setup_WidgetBuilder(Widget : BaseWidget):
-	for child in $WidgetMaker.get_children():
+	for child in $FeatureBuilder.get_children():
 		child.queue_free()
 	current_widget_data = Widget.current_data
 	old_widget_data = GlobalHelper.deep_copy(Widget.current_data)
 	build_specs = Widget.build_specs
 
-	for feature in current_widget_data.content:
-		_add_FeatureBuilder(build_specs.content,feature)
-
-	if build_specs.instructions.canAdd:
-		_add_FeatureBuilder(build_specs.content,current_widget_data.content[0],1)
 	
-	# #using the Dictionary pattern with match to change the FeatureBuilder configuration
-	# match current_widget_data:
-	# 	{"widget_type":"BasicWidget", ..}:
-	# 		for feature in current_widget_data.content:
-	# 			add_FeatureBuilder(current_widget_data.widget_type,content_description["BasicWidget"], feature)
-	# 		add_FeatureBuilder(current_widget_data.widget_type,content_description["BasicWidget"])
-	# 	{"widget_type":"SpellSlotWidget", ..}:
-	# 			add_FeatureBuilder(current_widget_data.widget_type,content_description["SpellSlotWidget"],current_widget_data.content[0]) 
-	# 	{"widget_type":"DiceTrackerWidget", ..}:
-	# 			add_FeatureBuilder(current_widget_data.widget_type,content_description["DiceTrackerWidget"],current_widget_data.content[0]) 
-				
+	add_FeatureBuilder(current_widget_data.content, Widget.builderPath)
+		
 func reset_WidgetBuilder():
 	$WidgetPreview.get_child(0).queue_free()
-	for child in $WidgetMaker.get_children():
+	for child in $FeatureBuilder.get_children():
 		child.queue_free()
 	current_widget_data = null
 
 func collect_specification() -> Dictionary:
-	var specs = []
-	for Feature in $WidgetMaker.get_children():
-		if !Feature.get_node("BtnAdd").visible:
-			specs.append(Feature.get_data())
-	return specs
+	return builder.get_specification()
+
 
 #TODO make widget reset instead of new instance
 func build_WidgetPreview():
 	if $WidgetPreview.get_child_count() > 0:
 		$WidgetPreview.get_child(0).queue_free()
-	var new_preview = load("res://scenes/%s.tscn" % current_widget_data.widget_type).instance()
+
+	var type = current_widget_data.widget_type
+	var node_path = "res://widgets/"+type+"/"+type+".tscn"
+	var new_preview = load(node_path).instance()
 	current_widget_data.content = collect_specification()
 	new_preview.construct_widget(current_widget_data)
 	$WidgetPreview.add_child(new_preview)
-
-func _on_BtnAdd_pressed():
-	_add_FeatureBuilder(build_specs.content,current_widget_data.content[0],1)
-
-func _on_BtnDelete_pressed(FeatureBuilder):
-	if $WidgetMaker.get_child_count() <= 1:
-		_add_FeatureBuilder(build_specs.content,current_widget_data.content[0],1)
-	FeatureBuilder.queue_free()
-
 
 func get_widget_specs() -> Dictionary:
 	return current_widget_data

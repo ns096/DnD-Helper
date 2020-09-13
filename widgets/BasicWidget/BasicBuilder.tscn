@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/UI_theme.tres" type="Theme" id=1]
+[ext_resource path="res://scenes/helper/DeleteConfirmation.tscn" type="PackedScene" id=2]
+[ext_resource path="res://widgets/BasicWidget/BasicBuilderOriginal.gd" type="Script" id=3]
+[ext_resource path="res://widgets/BasicWidget/BasicBuilder.gd" type="Script" id=4]
+[ext_resource path="res://assets/UI/plus.png" type="Texture" id=5]
+
+[node name="BasicBuilder" type="Control"]
+margin_right = 1080.0
+margin_bottom = 100.0
+rect_min_size = Vector2( 0, 100 )
+theme = ExtResource( 1 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PopupPanel" parent="." instance=ExtResource( 2 )]
+margin_left = 2.0
+margin_right = 386.0
+
+[node name="Original" type="HBoxContainer" parent="."]
+visible = false
+margin_right = 1080.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnAdd" type="Button" parent="Original"]
+margin_right = 112.0
+margin_bottom = 108.0
+theme = ExtResource( 1 )
+icon = ExtResource( 5 )
+
+[node name="LineEdit" type="LineEdit" parent="Original"]
+visible = false
+margin_left = 116.0
+margin_right = 1080.0
+margin_bottom = 108.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+text = "write here..."
+caret_blink = true
+
+[node name="SpinBox" type="SpinBox" parent="Original"]
+visible = false
+margin_left = 116.0
+margin_right = 931.0
+margin_bottom = 108.0
+rect_min_size = Vector2( 0, 80 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+max_value = 20.0
+rounded = true
+prefix = "Amount"
+
+[node name="BtnDelete" type="Button" parent="Original"]
+visible = false
+margin_left = 116.0
+margin_right = 261.0
+margin_bottom = 108.0
+size_flags_vertical = 3
+theme = ExtResource( 1 )
+text = "Delete"
+[connection signal="pressed" from="PopupPanel/VBoxContainer/HBox/BtnOK" to="." method="_on_BtnOK_pressed"]
+[connection signal="pressed" from="PopupPanel/VBoxContainer/HBox/BtnCancel" to="." method="_on_BtnCancel_pressed"]
+[connection signal="pressed" from="Original/BtnAdd" to="Original" method="_on_BtnAdd_pressed"]
+[connection signal="pressed" from="Original/BtnDelete" to="Original" method="_on_BtnDelete_pressed"]
+
+[editable path="PopupPanel"]

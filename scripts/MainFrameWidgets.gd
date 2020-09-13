@@ -82,7 +82,7 @@ func swipe_to_WidgetBuilder(Widget):
 	DynamicWidgetPage.hide()
 	WidgetBuilder.show()
 	SaveAndLoad.hide()
-
+	
 	$VBox/NavigationBar/BtnCancel.visible = true
 	$VBox/NavigationBar/BtnSubmit.visible = true
 	$VBox/NavigationBar/BtnWidgetPage.visible = false

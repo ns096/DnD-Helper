@@ -1,0 +1,91 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/UI_theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/paper_theme.tres" type="Theme" id=2]
+[ext_resource path="res://widgets/DiceTrackerWidget/DiceTrackerWidget.gd" type="Script" id=3]
+[ext_resource path="res://assets/UI/d4.png" type="Texture" id=4]
+[ext_resource path="res://assets/UI/d10.png" type="Texture" id=5]
+[ext_resource path="res://assets/UI/d8.png" type="Texture" id=6]
+[ext_resource path="res://assets/UI/d12.png" type="Texture" id=7]
+[ext_resource path="res://assets/UI/ripped_paper.png" type="Texture" id=8]
+[ext_resource path="res://assets/UI/d6.png" type="Texture" id=9]
+[ext_resource path="res://assets/UI/d20.png" type="Texture" id=10]
+
+[node name="DiceTrackerWidget" type="NinePatchRect"]
+margin_right = 307.0
+margin_bottom = 462.0
+theme = ExtResource( 1 )
+texture = ExtResource( 8 )
+patch_margin_left = 87
+patch_margin_top = 94
+patch_margin_right = 82
+patch_margin_bottom = 85
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": ""
+}
+builderPath = "res://widgets/DiceTrackerWidget/DiceTrackerBuilder.tscn"
+dice_textures = [ ExtResource( 4 ), ExtResource( 9 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 10 ) ]
+
+[node name="VBox" type="VBoxContainer" parent="."]
+margin_left = 25.0
+margin_top = 22.0
+margin_right = 234.0
+margin_bottom = 233.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelFeatureName" type="Label" parent="VBox"]
+margin_right = 256.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+theme = ExtResource( 2 )
+text = "d12"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="VBox"]
+margin_top = 62.0
+margin_right = 256.0
+margin_bottom = 318.0
+mouse_filter = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource( 5 )
+
+[node name="HBox" type="HBoxContainer" parent="VBox"]
+margin_top = 322.0
+margin_right = 256.0
+margin_bottom = 384.0
+
+[node name="BtnSubtract" type="Button" parent="VBox/HBox"]
+margin_right = 82.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 50, 50 )
+size_flags_horizontal = 3
+text = "-"
+
+[node name="Label" type="Label" parent="VBox/HBox"]
+margin_left = 86.0
+margin_top = 2.0
+margin_right = 169.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+theme = ExtResource( 2 )
+text = "d12"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BtnAdd" type="Button" parent="VBox/HBox"]
+margin_left = 173.0
+margin_right = 256.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 50, 50 )
+size_flags_horizontal = 3
+text = "+"
+[connection signal="pressed" from="VBox/HBox/BtnSubtract" to="." method="_on_BtnSubtract_pressed"]
+[connection signal="pressed" from="VBox/HBox/BtnAdd" to="." method="_on_BtnAdd_pressed"]
