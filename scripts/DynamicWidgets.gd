@@ -63,7 +63,7 @@ func _input(event):
 		var img =GlobalHelper.take_screenshot(2)
 		img.save_png(file)
 
-func _process(delta):
+func _process(delt
 	if holding_press && GlobalHelper.UI_focus == self && GlobalHelper.dragging_widget == false:
 		time_holding_down += delta
 		if time_holding_down >= 0.6:

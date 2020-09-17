@@ -92,7 +92,7 @@ func prepare_empty_folder():
 		var dir = Directory.new()
 
 		if dir.copy("res://saves/default_preview.png", "user://preview_images/default_preview.png") != 0:
-			print(dir.copy("res://saves/default_preview.png", "user://default_preview.png"))
+			print(dir.copy("res://saves/default_preview.png", "user://preview_images/default_preview.png"))
 
 #take default_save
 func load_defaultsave():
