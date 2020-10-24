@@ -40,7 +40,7 @@ const build_specs = {"content": {"settings":{"canDelete":false},"feature_name":[
 					"instructions":{"canAdd":false}}				
 
 
-func construct_widget(specifications : Dictionary):
+func construct_specific(specifications : Dictionary):
 	current_data = specifications
 	if specifications.has("content"):
 		if specifications.content.has("class_level"):
@@ -64,7 +64,7 @@ func construct_widget(specifications : Dictionary):
 				VerticalContainer.add_child(make_spell_slots(slot_level,available_slots[slot_level],used_slots[slot_level]))
 			$CenterContainer.add_child(VerticalContainer)
 	else:
-		construct_widget(default_data)
+		construct_specific(default_data)
 
 
 #returns an HBoxContainer with CheckBoxes

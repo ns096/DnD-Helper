@@ -6,12 +6,12 @@ const default_data = {"widget_type": "BannerWidget","widget_size": Vector2(3,1),
 const build_specs = {"content": {"settings":{"canDelete":false},"feature_name":["LineEdit"]},
 					"instructions":{"canAdd":false}}
 
-func construct_widget(specifications : Dictionary):
+func construct_specific(specifications : Dictionary):
 	current_data = specifications
 	if specifications.has("content"):
 		$MarginContainer/Label.text = specifications.content.feature_name
 	else:
-		construct_widget(default_data)
+		construct_specific(default_data)
 
 
 

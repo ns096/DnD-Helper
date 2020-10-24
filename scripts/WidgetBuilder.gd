@@ -68,7 +68,7 @@ func build_WidgetPreview():
 	var node_path = "res://widgets/"+type+"/"+type+".tscn"
 	var new_preview = load(node_path).instance()
 	current_widget_data.content = collect_specification()
-	new_preview.construct_widget(current_widget_data)
+	new_preview.construct_specific(current_widget_data)
 	$WidgetPreview.add_child(new_preview)
 
 func get_widget_specs() -> Dictionary:

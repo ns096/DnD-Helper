@@ -63,7 +63,7 @@ func _input(event):
 		var img =GlobalHelper.take_screenshot(2)
 		img.save_png(file)
 
-func _process(delt
+func _process(delta):
 	if holding_press && GlobalHelper.UI_focus == self && GlobalHelper.dragging_widget == false:
 		time_holding_down += delta
 		if time_holding_down >= 0.6:
@@ -141,17 +141,13 @@ func build_widget(page_position, specifications):
 	DynamicWidget.rect_position = page_coord_to_screen_coord(page_position)
 	
 #TODO make drag and snap widget search from center
-func get_widget_center(Widget : BaseWidget):
-	var widget_center_position = Widget.rect_position
-	widget_center_position.x += Widget.rect_size.x/2
-	widget_center_position.y += Widget.rect_size.y/2
-	return widget_center_position
+
 
 #widget signal on_start_drag_widget
 #keep initial start_drag_position for access later
 #set quick access widget_page_node_references to null and start moving
 func init_start_drag_widget(Widget : BaseWidget):
-	GlobalHelper.dragging_widget = true
+	GlobalHelper.set_ui_focus(Widget)
 	start_drag_position = screen_coord_to_page_coord(Widget.rect_position)
 	#widget_page_node_references[start_drag_position] = null
 	WidgetOptions.visible = false
@@ -177,7 +173,7 @@ func try_snap_widget(Widget : BaseWidget):
 		else:
 			print("try_snap_widget: no space left?")
 			widget_page_node_references["shit"]
-	GlobalHelper.dragging_widget = false
+	GlobalHelper.set_ui_focus(self)
 
 
 #update current widget_page as soon as user toggles a checkbox

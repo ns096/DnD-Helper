@@ -16,7 +16,7 @@ const build_specs = {"content": {"settings":{"canDelete":true},
 						"cur_marker":["max_marker"]},
 					"instructions":{"canAdd":true}}
 
-func construct_widget(specifications : Dictionary):
+func construct_specific(specifications : Dictionary):
 	current_data = specifications
 	if specifications.has("content"):
 		var VerticalContainer = VBoxContainer.new()
@@ -44,7 +44,7 @@ func construct_widget(specifications : Dictionary):
 			row+=1
 		$CenterContainer.add_child(VerticalContainer)
 	else:
-		construct_widget(default_data)
+		construct_specific(default_data)
 
 #returns an HBoxContainer with CheckBoxes
 func make_marker(row, max_marker, cur_marker,container):

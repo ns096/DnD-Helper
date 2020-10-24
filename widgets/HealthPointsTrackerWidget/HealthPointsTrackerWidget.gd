@@ -17,7 +17,7 @@ const build_specs = {"content": {"settings":{"canDelete":false},
 
 
 
-func construct_widget(specifications):
+func construct_specific(specifications):
 	current_data = specifications
 
 	if specifications.has("content"):
@@ -41,7 +41,7 @@ func construct_widget(specifications):
 		if specifications.content.has("feature_name"):
 			$VBox/LabelFeatureName.text = specifications.content.feature_name
 	else:
-		construct_widget(default_data)
+		construct_specific(default_data)
 	
 	showCurrentHealthPoints()
 

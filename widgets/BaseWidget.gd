@@ -51,7 +51,15 @@ func get_builder():
 #Widget needs to construct itself with Dictionary Data
 #Same Data has to be stored then in save file
 func construct_widget(specifications : Dictionary):
-	pass
+	construct_base(specifications)
+	construct_specific(specifications)
+
+func construct_base(specification : Dictionary):
+	
+	
+func construct_specific(specification : Dictionary):
+	if specification["page_size"]
+	step_size = Vector2(specification
 
 func update_current_data():
 	pass
@@ -84,7 +92,7 @@ func set_steps(x_step, y_step):
 func _input(event):
 
 	#this needs to be decoupled from the bounding box check because get_global_mouse_position() updates too slowly
-	if GlobalHelper.dragging_widget&&GlobalHelper.UI_focus == self && event is InputEventScreenDrag:
+	if GlobalHelper.dragging_widget && GlobalHelper.UI_focus == self && event is InputEventScreenDrag:
 		drag_widget(event)
 
 	if bounding_box.has_point(get_global_mouse_position())&&GlobalHelper.UI_focus == self:
@@ -120,8 +128,13 @@ func _process(delta):
 
 
 func _gui_input(event):
-	GlobalHelper.UI_focus = self
+	GlobalHelper.set_ui_focus(self)
 
 func drag_widget(event):
 	rect_position += event.relative
 
+func get_widget_center():
+	var widget_center_position = rect_position
+	widget_center_position.x += rect_size.x/2
+	widget_center_position.y += rect_size.y/2
+	return widget_center_position
