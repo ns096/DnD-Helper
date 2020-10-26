@@ -105,79 +105,48 @@ func update_widget_page():
 	build_widget_page(current_widget_page)
 
 func build_widget_page(widget_page):
-	for key in widget_page:
-		if key == null:
-			print("widget page key is null!!")
-		build_widget(key,widget_page[key])
+	page_meta_data = get_meta_data()
+	for position in widget_page:
+		if position == null:
+			print("widget page position is null!!")
+		build_widget(widget_page[position], position)
 
 func construct_widget_page(savedata : Dictionary):
 	current_widget_page = savedata["widget_page"]
 	COLUMNS = savedata["page_size"]["columns"]
 	ROWS = savedata["page_size"]["rows"]
 	build_widget_reference(COLUMNS,ROWS)
-	x_step = self.rect_size.x/COLUMNS
-	y_step = self.rect_size.y/ROWS
+	step_size = Vector2(self.rect_size.x/COLUMNS, self.rect_size.y/ROWS)
 	update_widget_page()
+
+func get_meta_data() -> Dictionary:
+	meta_data = {}
+	meta_data["grid"] = Vector2(COLUMNS, ROWS)
+	meta_data["step_size"] = step_size
+	return meta_data	
 
 #Takes page_position as key and specifications as value
 #this class keeps track of page position and specifications
 #Widget keeps track of specifications for user interactions and returning data later	
-func build_widget(page_position, specifications):
+func build_widget(specifications : Dictionary, position : Vector2):
 	var type = specifications.widget_type
 	var node_path = "res://widgets/"+type+"/"+type+".tscn"
-	var DynamicWidget = load(node_path).instance()
-	DynamicWidget.connect("on_release_drag_widget", self, "try_snap_widget")
-	DynamicWidget.connect("on_start_drag_widget", self, "init_start_drag_widget")
-	DynamicWidget.connect("on_holding_press", self, "show_widget_options")
-	DynamicWidget.connect("on_user_interaction", self, "user_changed_widget")
+	var Widget = load(node_path).instance()
+	Widget.connect("on_release_drag_widget", self, "try_snap_widget")
+	Widget.connect("on_start_drag_widget", self, "init_start_drag_widget")
+	Widget.connect("on_holding_press", self, "show_widget_options")
+	Widget.connect("on_user_interaction", self, "user_changed_widget")
 	
-	add_child(DynamicWidget)
-	widget_page_node_references[page_position] = DynamicWidget
+	add_child(Widget)
 	#Widget takes specifications and constructs itself
-	DynamicWidget.construct_widget(specifications)
-	DynamicWidget.set_steps(x_step, y_step)
+	Widget.construct(specifications, get_meta_data(), position)
+	Widget.set_steps(x_step, y_step)
 	
-	DynamicWidget.rect_size = Vector2(x_step*(specifications.widget_size.x), y_step*(specifications.widget_size.y))
-	DynamicWidget.rect_position = page_coord_to_screen_coord(page_position)
+	Widget.rect_size = Vector2(x_step*(specifications.widget_size.x), y_step*(specifications.widget_size.y))
+	Widget.rect_position = page_coord_to_screen_coord(page_position)
 	
-#TODO make drag and snap widget search from center
-
-
-#widget signal on_start_drag_widget
-#keep initial start_drag_position for access later
-#set quick access widget_page_node_references to null and start moving
-func init_start_drag_widget(Widget : BaseWidget):
-	GlobalHelper.set_ui_focus(Widget)
-	start_drag_position = screen_coord_to_page_coord(Widget.rect_position)
-	#widget_page_node_references[start_drag_position] = null
-	WidgetOptions.visible = false
-
-#widget signal on_release_drag_widget
-func try_snap_widget(Widget : BaseWidget):
-	#check if the tile beneath widget is free
-	#if free then move widget there and change all belonging data
-	if widget_page_node_references[screen_coord_to_page_coord(Widget.rect_position)] == null:
-		#take current position, check which tile it is and then return the position of the tile
-		Widget.rect_position = page_coord_to_screen_coord(screen_coord_to_page_coord(Widget.rect_position))
-		#if the location is different than the starting position, change widget_page_node_references and current_widget_page
-		if not screen_coord_to_page_coord(Widget.rect_position) == start_drag_position:
-			widget_page_node_references[screen_coord_to_page_coord(Widget.rect_position)] = Widget
-			current_widget_page[screen_coord_to_page_coord(Widget.rect_position)] = current_widget_page[start_drag_position]
-			current_widget_page.erase(start_drag_position)
-			widget_page_node_references[start_drag_position] = null
-		start_drag_position = null
-	else:
-		if find_any_empty() != null:
-			Widget.rect_position = page_coord_to_screen_coord(start_drag_position)
-			widget_page_node_references[screen_coord_to_page_coord(Widget.rect_position)] = Widget
-		else:
-			print("try_snap_widget: no space left?")
-			widget_page_node_references["shit"]
-	GlobalHelper.set_ui_focus(self)
-
-
 #update current widget_page as soon as user toggles a checkbox
-func user_changed_widget(Widget:BaseWidget):
+func user_changed_widget(Widget : BaseWidget):
 	var key = find_widget_on_page(Widget)
 	current_widget_page[key] = Widget.current_data
 	emit_signal("data_changed",current_widget_page)
@@ -227,28 +196,7 @@ func find_widget_on_page(Widget : BaseWidget):
 		
 	return "Not A Widget"
 
-#finds the first empty slot in widget_page_node_references
-#only if snapping the widget doesn't find a free slot
-func find_any_empty():
-	for key in widget_page_node_references:
-		if widget_page_node_references[key] == null:
-			return key
-	return null
-
-func build_widget_reference(columns, rows):
-	for x in columns:
-		for y in rows:
-			widget_page_node_references[Vector2(x,y)] = null
-					
-func screen_coord_to_page_coord(pos):
-	if pos.x < 0 || pos.x > self.rect_size.x || pos.y < 0 || pos.y > self.rect_size.y:
-		return(find_any_empty())
-	#this has a nasty rounding error with 3 columns so I increase pos.x by a bit
-	var u = 0.002
-	return Vector2(int((pos.x+u)/x_step), int((pos.y+u)/y_step))
-
-func page_coord_to_screen_coord(pos):
-	return Vector2((x_step*pos.x),(y_step*pos.y))
+				
 
 func resize_widget(Widget, new_size):
 	Widget.rect_size = Vector2(x_step*new_size.x, y_step*new_size.y)

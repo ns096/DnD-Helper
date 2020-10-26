@@ -50,16 +50,15 @@ func get_builder():
 
 #Widget needs to construct itself with Dictionary Data
 #Same Data has to be stored then in save file
-func construct_widget(specifications : Dictionary):
-	construct_base(specifications)
-	construct_specific(specifications)
-
-func construct_base(specification : Dictionary):
+func construct(specification : Dictionary, meta_data : Dictionary, page_position : Vector2):
+	self.page_position = page_position
+	self.rect_size = meta_data["step_size"] * page_position
+	rect_position = page_position * step_size
+	#call unique implementation
+	_construct(specification)
 	
-	
-func construct_specific(specification : Dictionary):
-	if specification["page_size"]
-	step_size = Vector2(specification
+func _construct(specification : Dictionary):
+	pass
 
 func update_current_data():
 	pass
@@ -138,3 +137,13 @@ func get_widget_center():
 	widget_center_position.x += rect_size.x/2
 	widget_center_position.y += rect_size.y/2
 	return widget_center_position
+
+func screen_coord_to_page_coord(pos):
+	if pos.x < 0 || pos.x > self.rect_size.x || pos.y < 0 || pos.y > self.rect_size.y:
+		return(find_any_empty())
+	#this has a nasty rounding error with 3 columns so I increase pos.x by a bit
+	var u = 0.002
+	return Vector2(int((pos.x+u)/x_step), int((pos.y+u)/y_step))
+
+func page_coord_to_screen_coord(pos):
+	return Vector2((x_step*pos.x),(y_step*pos.y))

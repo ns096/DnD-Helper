@@ -77,6 +77,5 @@ func take_screenshot(shrink_factor := 0) -> Image:
 	return image
 
 
-func set_ui_focus(UI : Control, is_dragging : bool):
+func set_ui_focus(UI : Control, is_dragging := false):
 	UI_focus = UI
-	
