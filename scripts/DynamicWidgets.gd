@@ -68,9 +68,8 @@ func _process(delta):
 		time_holding_down += delta
 		if time_holding_down >= 0.6:
 			var pos = get_global_mouse_position()
-			if widget_page_node_references[screen_coord_to_page_coord(pos)] == null:
-				selected_widget_key = screen_coord_to_page_coord(pos)
-				$PopupAddWidget.popup()
+			selected_widget_key = Global_Helper.screen_coord_to_page_coord(pos)
+			$PopupAddWidget.popup()
 			time_holding_down = 0.0
 			holding_press = false
 
@@ -210,6 +209,13 @@ func _on_PopupResize_Submit_pressed() -> void:
 	selected_widget_key = null
 	emit_signal("data_changed",current_widget_page)
 
+func screen_coord_to_page_coord(pos):
+	#this has a nasty rounding error with 3 columns so I increase pos.x by a bit
+	var u = 0.002
+	return Vector2(int((pos.x+u)/step_size.x), int((pos.y+u)/step_size.y))
+
+func page_coord_to_screen_coord(pos):
+	return Vector2((step_size.x*pos.x),(step_size.y*pos.y))
 
 
 #widget popup easier to add new data 

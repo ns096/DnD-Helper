@@ -138,12 +138,3 @@ func get_widget_center():
 	widget_center_position.y += rect_size.y/2
 	return widget_center_position
 
-func screen_coord_to_page_coord(pos):
-	if pos.x < 0 || pos.x > self.rect_size.x || pos.y < 0 || pos.y > self.rect_size.y:
-		return(find_any_empty())
-	#this has a nasty rounding error with 3 columns so I increase pos.x by a bit
-	var u = 0.002
-	return Vector2(int((pos.x+u)/x_step), int((pos.y+u)/y_step))
-
-func page_coord_to_screen_coord(pos):
-	return Vector2((x_step*pos.x),(y_step*pos.y))
