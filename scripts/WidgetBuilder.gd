@@ -23,7 +23,7 @@ func _process(delta):
 		build_WidgetPreview()
 
 
-func add_FeatureBuilder(specification, builderPath):
+func add_FeatureBuilder(specification: Dictionary, builderPath: String):
 	builder = load(builderPath).instance()
 	builder.setup_FeatureBuilder(specification)
 	$FeatureBuilder.add_child(builder)
@@ -42,12 +42,12 @@ func get_new_widget_specs() -> Dictionary:
 func setup_WidgetBuilder(Widget : BaseWidget):
 	for child in $FeatureBuilder.get_children():
 		child.queue_free()
-	current_widget_data = Widget.current_data
-	old_widget_data = GlobalHelper.deep_copy(Widget.current_data)
-	build_specs = Widget.build_specs
-
+	self.old_widget_data = GlobalHelper.deep_copy(Widget.current_data)
+	self.current_widget_data = Widget.current_data
 	
-	add_FeatureBuilder(current_widget_data.content, Widget.builderPath)
+	self.build_specs = Widget.build_specs
+
+	add_FeatureBuilder(self.current_widget_data.content, Widget.builderPath)
 		
 func reset_WidgetBuilder():
 	$WidgetPreview.get_child(0).queue_free()

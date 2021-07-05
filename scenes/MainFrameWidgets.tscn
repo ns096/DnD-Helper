@@ -52,8 +52,8 @@ text = "Widget Page"
 
 [node name="BtnSubmit" type="Button" parent="VBox/NavigationBar"]
 visible = false
-margin_left = 283.0
-margin_right = 506.0
+margin_left = 356.0
+margin_right = 708.0
 margin_bottom = 100.0
 rect_min_size = Vector2( 0, 100 )
 size_flags_horizontal = 3
@@ -79,6 +79,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 2 )
 text = "Cancel"
+
 [connection signal="pressed" from="VBox/NavigationBar/BtnWidgetPage" to="." method="_on_Widget_Page_pressed"]
 [connection signal="pressed" from="VBox/NavigationBar/BtnSubmit" to="." method="_on_Submit_pressed"]
 [connection signal="pressed" from="VBox/NavigationBar/BtnSaveAndLoad" to="." method="_on_Save_And_Load_pressed"]

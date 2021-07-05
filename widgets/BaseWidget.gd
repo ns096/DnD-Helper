@@ -37,7 +37,6 @@ func _ready():
 	red_dot = load("res://scenes/red_dot.tscn").instance()
 	add_child(red_dot)
 	red_dot.visible = false
-	self.connect("resized",self,"_on_resized")
 	mouse_filter = MOUSE_FILTER_STOP
 
 func get_data():
@@ -50,14 +49,23 @@ func get_builder():
 
 #Widget needs to construct itself with Dictionary Data
 #Same Data has to be stored then in save file
-func construct(specification : Dictionary, meta_data : Dictionary, page_position : Vector2):
-	self.page_position = page_position
-	self.rect_size = meta_data["step_size"] * page_position
-	rect_position = page_position * step_size
-	#call unique implementation
-	_construct(specification)
+func construct(specification : Dictionary, meta_data : Dictionary):
+	self.current_data = specification
+
+	self.page_position = specification["position"]
+	self.widget_size = specification["widget_size"]
+
+	self.step_size = meta_data["step_size"]
 	
-func _construct(specification : Dictionary):
+
+	self.rect_size = self.step_size * self.widget_size
+	self.rect_position = self.step_size * self.page_position
+
+	#call unique implementation
+	construct_specific(specification)
+	
+#unique function the must be implemented by all Widgets	
+func construct_specific(specification : Dictionary):
 	pass
 
 func update_current_data():
@@ -77,7 +85,9 @@ var red_dot
 var holding_press = false
 
 #update the size of bounding box
-func _on_resized():
+func resize(size: Vector2):
+	widget_size = size
+	rect_size = step_size * size
 	bounding_box.size = rect_size
 
 func set_steps(x_step, y_step):
@@ -89,48 +99,54 @@ func set_steps(x_step, y_step):
 #first set Singleton GlobalHelper_UI_focus to self when getting input
 #then start setting flags for time,drag and hold  	
 func _input(event):
+	if event.position != null:
 
-	#this needs to be decoupled from the bounding box check because get_global_mouse_position() updates too slowly
-	if GlobalHelper.dragging_widget && GlobalHelper.UI_focus == self && event is InputEventScreenDrag:
-		drag_widget(event)
+		#this needs to be decoupled from the bounding box check because get_global_mouse_position() updates too slowly
+		if GlobalHelper.dragging_widget && GlobalHelper.UI_focus == self && event is InputEventScreenDrag:
+			drag_widget(event.relative)
 
-	if bounding_box.has_point(get_global_mouse_position())&&GlobalHelper.UI_focus == self:
-		if event is InputEventScreenTouch:
-			if event.is_pressed():
-				holding_press = true
-			else:
+		if bounding_box.has_point(event.position) && GlobalHelper.UI_focus == self:
+			if event is InputEventScreenTouch:
+				if event.is_pressed():
+					holding_press = true
+				else:
+					holding_press = false
+					time_gone = 0.0
+					red_dot.visible = false
+					rect_scale = Vector2(1,1)
+					GlobalHelper.UI_focus = null
+					if GlobalHelper.dragging_widget:
+						self.page_position = screen_coord_to_page_coord(self.rect_position)
+						self.rect_position = page_coord_to_screen_coord(self.page_position)
+						GlobalHelper.dragging_widget = false
+						#emit_signal("on_release_drag_widget",self)
+						
+			if event is InputEventScreenDrag:
+				if !GlobalHelper.dragging_widget:
+					emit_signal("on_start_drag_widget",self)
+					red_dot.visible = true
+					rect_scale *= 1.1
 				holding_press = false
-				time_gone = 0.0
-				red_dot.visible = false
-				rect_scale = Vector2(1,1)
-				GlobalHelper.UI_focus = null
-				if GlobalHelper.dragging_widget:
-					emit_signal("on_release_drag_widget",self)
-					
-		if event is InputEventScreenDrag:
-			if !GlobalHelper.dragging_widget:
-				emit_signal("on_start_drag_widget",self)
-				red_dot.visible = true
-				rect_scale *= 1.1
-			holding_press = false
-			#drag_widget(event)
+				#drag_widget(event)
 
 var time_gone = 0.0				
 func _process(delta):
-	bounding_box.position = rect_position
-	if holding_press && bounding_box.has_point(get_global_mouse_position()):
+	bounding_box.position = self.rect_position
+	if holding_press && bounding_box.has_point(get_global_mouse_position()) && !GlobalHelper.dragging_widget:
 		time_gone += delta
 		if time_gone >= 0.4:
 			emit_signal("on_holding_press",self)
 			time_gone = 0.0
 			holding_press = false
+	else:
+		time_gone = 0.0 
 
 
 func _gui_input(event):
 	GlobalHelper.set_ui_focus(self)
 
-func drag_widget(event):
-	rect_position += event.relative
+func drag_widget(relative_movement):
+	self.rect_position += relative_movement
 
 func get_widget_center():
 	var widget_center_position = rect_position
@@ -138,3 +154,10 @@ func get_widget_center():
 	widget_center_position.y += rect_size.y/2
 	return widget_center_position
 
+func screen_coord_to_page_coord(pos: Vector2):
+	#this has a nasty rounding error with 3 columns so I increase pos.x by a bit
+	var u = 0.002
+	return Vector2(int((pos.x+u)/step_size.x), int((pos.y+u)/step_size.y))
+
+func page_coord_to_screen_coord(pos: Vector2):
+	return step_size * pos

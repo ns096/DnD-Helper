@@ -175,4 +175,5 @@ margin_bottom = 270.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "Health Point Tracker"
+
 [connection signal="pressed" from="PopupResize/VBox/PopupResize_Submit" to="." method="_on_PopupResize_Submit_pressed"]

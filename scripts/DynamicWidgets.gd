@@ -2,8 +2,8 @@ extends Control
 
 #Widget Page class
 #responsible for instancing the widgets and keeping an up to date widget page
-#current_widget_page is a dictionary with Vector2 as a key and widget_data as their value
-#widget_page_node_references is a dictionary with Vector2 as a key and stores the widget children node references
+
+
 #this class is also responsible for implementing dragging a widget and resizing it
 #editing a widget emits a signal that gets sent to WidgetBuilder
 #it also stores which vector2 key is currently active/selected
@@ -12,12 +12,14 @@ extends Control
 var ROWS = 10
 var COLUMNS = 6
 var widget_page_node_references = {}
-var selected_widget_key
+var widget_position
+var _selected_widget setget set_selected_widget, get_selected_widget
 var start_drag_position
 var WidgetOptions
-var current_widget_page setget widgetpage_set,widgetpage_get
+var current_widget_page setget set_widgetpage, get_widgetpage
 var x_step
 var y_step
+var settings
 
 export(Array,String, FILE) var scene_paths
 
@@ -25,6 +27,8 @@ signal edit_widget(Widget)
 signal data_changed(widget_page)
 
 func _ready():
+	setup_settings(COLUMNS, ROWS)
+
 	WidgetOptions = load("res://scenes/WidgetOptions.tscn").instance()
 	WidgetOptions.connect("_on_button_pressed", self, "option_button_pressed")
 	add_child(WidgetOptions)
@@ -60,74 +64,81 @@ func _input(event):
 			time_holding_down = 0.0
 	if Input.is_key_pressed(KEY_P):
 		var file = "user://preview.png"
-		var img =GlobalHelper.take_screenshot(2)
+		var img = GlobalHelper.take_screenshot(2)
 		img.save_png(file)
 
 func _process(delta):
+	# press and hold widget to access options
 	if holding_press && GlobalHelper.UI_focus == self && GlobalHelper.dragging_widget == false:
 		time_holding_down += delta
 		if time_holding_down >= 0.6:
-			var pos = get_global_mouse_position()
-			selected_widget_key = Global_Helper.screen_coord_to_page_coord(pos)
+			widget_position = screen_coord_to_page_coord(get_global_mouse_position())
 			$PopupAddWidget.popup()
 			time_holding_down = 0.0
 			holding_press = false
 
 #return also setting when accessed outside
-func widgetpage_get():
-	print("widget_page getter accessed from outside")
+func get_widgetpage():
+	update_current_widget_page_data()
 	var page_and_settings = {"page_size":{"columns":COLUMNS,"rows":ROWS},"widget_page":current_widget_page}
 	return page_and_settings
 
-func widgetpage_set(value):
-	match value:
-		{"page_size","widget_page"}:
-			#complete data overwrites current data
-			current_widget_page = value["widget_page"]
-			COLUMNS = value["page_size"]["columns"]
-			ROWS = value["page_size"]["rows"]
-			build_widget_reference(COLUMNS,ROWS)
-			x_step = self.rect_size.x/COLUMNS
-			y_step = self.rect_size.y/ROWS
-			update_widget_page()
-		{"widget_page",..}:
-			current_widget_page = value["widget_page"]
-		var wildcard:
-			print("pattern does not match")
-			print(wildcard)
-
-func update_widget_page():
-	build_widget_reference(COLUMNS,ROWS)
+func update_current_widget_page_data():
+	var widget_page_data = []
 	for child in get_children():
 		if child is BaseWidget:
-			child.free()
-	build_widget_page(current_widget_page)
+			var data = child.get_data()
+			if data != null:
+				widget_page_data.append(data)
+			else:
+				print(child)
+	current_widget_page = widget_page_data
 
+func set_widgetpage(value):
+	current_widget_page = value["widget_page"]
+	setup_settings(value["page_size"]["columns"],value["page_size"]["rows"])
+
+func set_selected_widget(Widget: BaseWidget):
+	_selected_widget = Widget
+
+func get_selected_widget() -> BaseWidget:
+	return _selected_widget	
+
+# build page with widget specs	
+func clear_widget_page():
+	for child in get_children():
+		if child is BaseWidget:
+			child.queue_free()
+
+# build page with widget specs	
 func build_widget_page(widget_page):
-	page_meta_data = get_meta_data()
-	for position in widget_page:
-		if position == null:
-			print("widget page position is null!!")
-		build_widget(widget_page[position], position)
+	for widget in widget_page:
+		build_widget(widget)
 
 func construct_widget_page(savedata : Dictionary):
-	current_widget_page = savedata["widget_page"]
+	clear_widget_page()
+
 	COLUMNS = savedata["page_size"]["columns"]
 	ROWS = savedata["page_size"]["rows"]
-	build_widget_reference(COLUMNS,ROWS)
-	step_size = Vector2(self.rect_size.x/COLUMNS, self.rect_size.y/ROWS)
-	update_widget_page()
+	setup_settings(COLUMNS, ROWS)
 
-func get_meta_data() -> Dictionary:
-	meta_data = {}
-	meta_data["grid"] = Vector2(COLUMNS, ROWS)
-	meta_data["step_size"] = step_size
-	return meta_data	
+	build_widget_page(savedata["widget_page"])
+
+func setup_settings(columns, rows):
+	settings = {}
+	settings["grid"] = Vector2(COLUMNS, ROWS)
+	settings["step_size"] = Vector2(self.rect_size.x/COLUMNS, self.rect_size.y/ROWS)
+	COLUMNS = columns
+	ROWS = rows
+
+func get_settings() -> Dictionary:
+	return settings 
 
 #Takes page_position as key and specifications as value
 #this class keeps track of page position and specifications
 #Widget keeps track of specifications for user interactions and returning data later	
-func build_widget(specifications : Dictionary, position : Vector2):
+func build_widget(specifications : Dictionary):
+	var position = specifications["position"]
 	var type = specifications.widget_type
 	var node_path = "res://widgets/"+type+"/"+type+".tscn"
 	var Widget = load(node_path).instance()
@@ -138,20 +149,14 @@ func build_widget(specifications : Dictionary, position : Vector2):
 	
 	add_child(Widget)
 	#Widget takes specifications and constructs itself
-	Widget.construct(specifications, get_meta_data(), position)
-	Widget.set_steps(x_step, y_step)
-	
-	Widget.rect_size = Vector2(x_step*(specifications.widget_size.x), y_step*(specifications.widget_size.y))
-	Widget.rect_position = page_coord_to_screen_coord(page_position)
+	Widget.construct(specifications, get_settings())
 	
 #update current widget_page as soon as user toggles a checkbox
 func user_changed_widget(Widget : BaseWidget):
-	var key = find_widget_on_page(Widget)
-	current_widget_page[key] = Widget.current_data
 	emit_signal("data_changed",current_widget_page)
 
 func show_widget_options(Widget : BaseWidget):
-	selected_widget_key = screen_coord_to_page_coord(Widget.rect_position)
+	_selected_widget = Widget
 	WidgetOptions.rect_position = Vector2(get_global_mouse_position().x-WidgetOptions.rect_size.x/2,get_global_mouse_position().y-WidgetOptions.rect_size.y)
 	WidgetOptions.popup()
 	GlobalHelper.tween_pop(WidgetOptions)
@@ -161,29 +166,17 @@ func option_button_pressed(type):
 	match type:
 		"resize":
 			$PopupResize.popup()
-			$PopupResize/VBox/HBox1/Width.value = current_widget_page[selected_widget_key].widget_size.x
-			$PopupResize/VBox/HBox2/Height.value = current_widget_page[selected_widget_key].widget_size.y
+			$PopupResize/VBox/HBox1/Width.value = _selected_widget.widget_size.x
+			$PopupResize/VBox/HBox2/Height.value = _selected_widget.widget_size.y
 		"delete":
-			clear_widget_from_page(selected_widget_key)
-			selected_widget_key = null
+			_selected_widget.queue_free()
+			_selected_widget = null
 		"edit":
 			GlobalHelper.tween_swipe_hide(self)
-			emit_signal("edit_widget",widget_page_node_references[selected_widget_key])
+			emit_signal("edit_widget",_selected_widget)
 		_:
 			print(type)
 	WidgetOptions.visible = false
-
-#takes widget and removes it from the page array and then frees it
-func clear_widget_from_page(key : Vector2):
-	if widget_page_node_references[key] != null:
-		widget_page_node_references[key].free()
-		widget_page_node_references[key] = null
-		if current_widget_page.has(key):
-			current_widget_page.erase(key)
-		else:
-			print("widget_page_node_references has widget but widget_page doesnt")
-	else:
-		print("could not find widget in widget_page_node_references")
 
 func find_widget_on_page(Widget : BaseWidget):
 	if Widget is BaseWidget:
@@ -195,7 +188,14 @@ func find_widget_on_page(Widget : BaseWidget):
 		
 	return "Not A Widget"
 
-				
+#widget signal on_start_drag_widget
+#keep initial start_drag_position for access later
+#set quick access widget_page_node_references to null and start moving
+func init_start_drag_widget(Widget : BaseWidget):
+	GlobalHelper.dragging_widget = true
+	start_drag_position = screen_coord_to_page_coord(Widget.rect_position)
+	#widget_page_node_references[start_drag_position] = null
+	WidgetOptions.visible = false
 
 func resize_widget(Widget, new_size):
 	Widget.rect_size = Vector2(x_step*new_size.x, y_step*new_size.y)
@@ -204,27 +204,29 @@ func resize_widget(Widget, new_size):
 func _on_PopupResize_Submit_pressed() -> void:
 	$PopupResize.visible = false
 	var new_size = Vector2($PopupResize/VBox/HBox1/Width.value,$PopupResize/VBox/HBox2/Height.value)
-	resize_widget(widget_page_node_references[selected_widget_key], new_size)
-	current_widget_page[selected_widget_key].widget_size = new_size
-	selected_widget_key = null
+	_selected_widget.resize(new_size)
+
+	widget_position = null
 	emit_signal("data_changed",current_widget_page)
 
-func screen_coord_to_page_coord(pos):
+func screen_coord_to_page_coord(pos: Vector2):
 	#this has a nasty rounding error with 3 columns so I increase pos.x by a bit
 	var u = 0.002
+	var step_size = get_settings()["step_size"]
 	return Vector2(int((pos.x+u)/step_size.x), int((pos.y+u)/step_size.y))
 
-func page_coord_to_screen_coord(pos):
-	return Vector2((step_size.x*pos.x),(step_size.y*pos.y))
+func page_coord_to_screen_coord(pos: Vector2):
+	var step_size = get_settings()["step_size"]
+	return step_size * pos
 
 
 #widget popup easier to add new data 
 func _on_new_widget(widget_data):
-	print(widget_data)
-	current_widget_page[selected_widget_key] = widget_data
-	update_widget_page()
+	widget_data["position"] = widget_position
+	build_widget(widget_data)
 	$PopupAddWidget.visible = false
-	selected_widget_key = null
+	_selected_widget = null
+	widget_position = null
 
 #DEV functions
 #fill all page slots with a basic test widget

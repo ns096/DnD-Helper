@@ -10,6 +10,7 @@ extends VBoxContainer
 
 var selected_save
 var default_save_path = "user://default_save.json"
+var preview_image
 onready var current_session : Dictionary = {"savename":"default"} setget savedata_set
 
 signal savedata_loaded(widget_page)
@@ -72,26 +73,25 @@ func assign_saveslots():
 #savedata has to be stored in user://		
 func prepare_empty_folder():
 	var file = File.new()
+	var dir = Directory.new()
 	#check for save,json and default.json
 	# from saves folder to user folder
 	if not file.file_exists("user://save.json"):
-		var dir = Directory.new()
 		if dir.copy("res://saves/save.json", "user://save.json") != 0:
 			$NewSave.text = "Cant_: %s" % dir.copy("res://saves/save.json", "user://save.json")
+
 	if not file.file_exists("user://default.json"):
-		var dir = Directory.new()
 		if dir.copy("res://saves/default.json", "user://default.json") != 0:
 			$NewSave.text = "Cant_: %s" % dir.copy("res://saves/default_autosave.json", "user://default_autosave.json")
 
 	if not file.file_exists("user://autosave.json"):
-		var dir = Directory.new()
 		if dir.copy("res://saves/default.json", "user://autosave.json") != 0:
 			$NewSave.text = "Cant_: %s" % dir.copy("res://saves/default.json", "user://autosave.json")
 
 	if not file.file_exists("user://preview_images/default_preview.png"):
-		var dir = Directory.new()
-
+		dir.make_dir("user://preview_images/")
 		if dir.copy("res://saves/default_preview.png", "user://preview_images/default_preview.png") != 0:
+			print("Can't copy default picture")
 			print(dir.copy("res://saves/default_preview.png", "user://preview_images/default_preview.png"))
 
 #take default_save
@@ -192,17 +192,18 @@ func prepare_data(data):
 			print(data)
 
 #take current_session data and save it, also update the save.json file with the current metadata
-func save_session(savename,saveslot,sessiondata):
+func save_session(savename, saveslot, sessiondata):
 	emit_signal("save_current_session")
 	#savedata_updated gets send out before yield even get executed
 	#yield(self, "savedata_updated")
 	var data = load_json_file("user://save.json")
 	data[saveslot]["date"] = OS.get_datetime()
 	save_json_file("user://save.json", data)
-
+	
 	var user_data = GlobalHelper.deep_copy(sessiondata)
 	user_data["savedata"]["widget_page"] = parse_widget_page_to_json(sessiondata["savedata"]["widget_page"])
-
+	user_data["savedata"]["page_size"]["columns"] = sessiondata["savedata"]["page_size"]["columns"]
+	user_data["savedata"]["page_size"]["rows"] = sessiondata["savedata"]["page_size"]["rows"]
 	store_save(savename, user_data)
 
 #this section is for handling button presses and signals
@@ -262,38 +263,41 @@ func _on_NewSave_pressed() -> void:
 #takes widget_page with all the variant datatype like Vector2 and saves it all as a Dictionary
 #this could get event bigger if more diverse widgets are added
 #the nesting of the savedata has to be valid	
-func parse_widget_page_to_json(widget_page : Dictionary) -> Dictionary:
+func parse_widget_page_to_json(widget_page : Array) -> Dictionary:
 	var valid_json = []
 	
-	for key in widget_page:
-		var widget = {}
-		widget.pos_x = key.x
-		widget.pos_y = key.y
-		widget.size_x = widget_page[key].widget_size.x
-		widget.size_y = widget_page[key].widget_size.y
-		widget.widget_type = widget_page[key].widget_type
-		widget.content = widget_page[key].content
+	for widget in widget_page:
+		var widget_json = {}
+		widget_json.pos_x = widget.position.x
+		widget_json.pos_y = widget.position.y
+		widget_json.size_x = widget.widget_size.x
+		widget_json.size_y = widget.widget_size.y
+		widget_json.widget_type = widget.widget_type
+		widget_json.content = widget.content
 
-		valid_json.append(widget)
+		valid_json.append(widget_json)
 	return valid_json
-
 
 #takes the json with all its primitves and turn them into variant data to be read and accessed properly
 #nesting of the data is really important
 #look at save.json and default.json for examples	
 func parse_json_to_widget_page(json : Array) -> Dictionary:
-	var widget_page = {}
+	var widget_page = []
 	for data in json:
 		var widget = {"widget_type":data.widget_type,
 						"widget_size":Vector2(data.size_x,data.size_y),
-						"content": data.content}
-		widget_page[Vector2(data.pos_x,data.pos_y)] = widget
+						"content": data.content,
+						"position": Vector2(data.pos_x, data.pos_y)
+					}
+		widget_page.append(widget)
 	return widget_page
+
+func set_preview_image(image):
+	preview_image = image
 
 #Delete Confirmation Popup Panel
 func _on_BtnOK_pressed() -> void:
 	pass # Replace with function body.
-
 
 func _on_BtnCancel_pressed() -> void:
 	pass # Replace with function body.

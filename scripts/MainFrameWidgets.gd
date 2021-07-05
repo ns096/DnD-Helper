@@ -56,8 +56,8 @@ func setup_widget_page():
 
 #update SaveAndLoad data which triggers the set signal on current_session
 func _on_save_session():
-	print("save session pressed")
-	SaveAndLoad.current_session = DynamicWidgetPage.current_widget_page	
+	SaveAndLoad.set_preview_image(GlobalHelper.take_screenshot())
+	SaveAndLoad.current_session = DynamicWidgetPage.get_widgetpage()
 
 # $DynamicWidgetPage sends data_changed signal everytime a checkbox gets pressed and triggers the autosave	
 func _on_widget_page_changed(_widget_page):
@@ -68,10 +68,8 @@ func construct_WidgetPage(widget_page):
 	DynamicWidgetPage.construct_widget_page(widget_page)
 
 func _on_save_data_loaded(save_data):
-	
 	construct_WidgetPage(save_data)
 	_on_Widget_Page_pressed()
-
 
 
 func _notification(event):
@@ -110,7 +108,6 @@ func _on_Save_And_Load_pressed() -> void:
 	WidgetBuilder.hide()
 	GlobalHelper.tween_swipe_show(SaveAndLoad)
 
-
 func _on_Cancel_pressed():
 	WidgetBuilder.reset_WidgetBuilder()
 	#switch UI back to Widget Page
@@ -124,15 +121,10 @@ func _on_Cancel_pressed():
 
 func _on_Submit_pressed():
 	var new_widget_specs = WidgetBuilder.get_widget_specs()
-	var widget_key = DynamicWidgetPage.selected_widget_key
-	#make copy of current_widget_page
-	var copy_widget_page = GlobalHelper.deep_copy(DynamicWidgetPage.current_widget_page)
-	#completely delete old widget we have key and data locally
-	#DynamicWidgetPage.clear_widget_from_page(widget_key)
-	#add new widget data directly
-	DynamicWidgetPage.current_widget_page["widget_page"][widget_key] = new_widget_specs
-	DynamicWidgetPage.selected_widget_key = null
-	DynamicWidgetPage.update_widget_page()
+	DynamicWidgetPage._selected_widget.queue_free()
+
+	DynamicWidgetPage._selected_widget = null
+	DynamicWidgetPage.build_widget(new_widget_specs)
 
 	WidgetBuilder.reset_WidgetBuilder()
 	
